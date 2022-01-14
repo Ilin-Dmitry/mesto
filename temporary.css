@@ -92,3 +92,52 @@
   border: 2px solid #fff;
   border-radius: 2px;
 }
+
+
+/* === === === === ===
+        ELEMENTS
+   === === === === === */
+.element {
+  width: 282px;
+  height: 361px;
+  color: #000;
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+
+}
+.element__picture {
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  line-height: 0;*/
+  display: block;
+}
+
+.element__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.element__name {
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.21;
+  margin: 25px auto 31px 21px;
+  padding: 0;
+  display: block;
+}
+
+.element__like {
+  width: 22px;
+  height: 19px;
+  background-color: #fff;
+  background-image: url(images/like-white.svg);
+  border: none;
+  display: block;
+  padding: 0;
+  margin-right: 20px;
+}
