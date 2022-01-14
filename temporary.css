@@ -1,5 +1,28 @@
 .page {
   background-color: #000;
   font-family: Inter, Arial, Helvetica, sans-serif;
+  color: #fff;
 }
+
+.page__container {
+  width: 100%;
+  max-width: 880px;
+  margin: 45px auto 0;
+}
+/* === === === === ===
+          HEADER
+   === === === === === */
+.logo {
+  width: 142px;
+  height: 33px;
+  object-fit: cover;
+}
+
+.header__line {
+  width: 100%;
+  height: 1px;
+  margin-top: 41px;
+  background-color: rgba(84, 84, 84, .7);
+}
+
 
