@@ -25,4 +25,70 @@
   background-color: rgba(84, 84, 84, .7);
 }
 
+/* === === === === ===
+        PROFILE
+   === === === === === */
+.profile {
+  display: flex;
+  align-items: center;
+  padding: 40px 0 50px;
 
+}
+
+.profile__avatar {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+  background-image: url(images/kusto.jpg);
+  background-size: cover;
+  border-radius: 50%;
+}
+
+.profile__info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  width: 100%;
+  max-width: 336px;
+  margin-left: 30px;
+}
+
+.profile__info-title {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+.profile__info-subtitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+}
+
+.profile__info-edit-button {
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  background-color: #000;
+  background-image: url(images/pen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 1px solid #fff;
+}
+
+.profile__button {
+
+  width: 150px;
+  height: 50px;
+  margin-left: auto;
+  padding: 0;
+  background-color: #000;
+  background-image: url(images/plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
