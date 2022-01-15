@@ -148,3 +148,29 @@
   padding: 0;
   margin-right: 20px;
 }
+
+
+/* === === === === ===
+        FOOTER
+   === === === === === */
+.footer {
+  padding: 66px 0 60px;
+}
+
+.footer__copyright {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.21;
+  font-weight: 400;
+  color: #545454;
+}
+
+
+
+
+
+
+
+
+
+
