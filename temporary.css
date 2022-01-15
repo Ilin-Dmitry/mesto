@@ -130,6 +130,12 @@
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid #fff;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.profile__info-edit-button:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width: 900px) {
@@ -151,6 +157,12 @@
   background-position: center;
   border: 2px solid #fff;
   border-radius: 2px;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+
+.profile__button:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width: 900px) {
@@ -241,6 +253,16 @@
   display: block;
   padding: 0;
   margin-right: 20px;
+  cursor: pointer;
+  transition: background-image .2s ease;
+}
+
+.element__like:hover {
+  background-image: url(images/like-hover.svg);
+}
+
+.element__like:active {
+  background-image: url('images/like-active.svg');
 }
 
 
