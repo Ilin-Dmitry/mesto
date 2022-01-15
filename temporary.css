@@ -97,6 +97,13 @@
 /* === === === === ===
         ELEMENTS
    === === === === === */
+.elements {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px 17px;
+
+}
+
 .element {
   width: 282px;
   height: 361px;
