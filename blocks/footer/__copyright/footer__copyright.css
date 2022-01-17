@@ -1,14 +1,14 @@
-.profile__info-subtitle {
+.footer__copyright {
   margin: 0;
-  margin-top: 16px;
   font-size: 18px;
-  font-weight: 400;
   line-height: 1.21;
+  font-weight: 400;
+  color: #545454;
 }
 
+
 @media screen and (max-width: 900px) {
-  .profile__info-subtitle {
-    margin-top: 14px;
+  .footer__copyright {
     font-size: 14px;
   }
 }
