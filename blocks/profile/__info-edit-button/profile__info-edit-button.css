@@ -9,6 +9,8 @@
   border: 1px solid #fff;
   cursor: pointer;
   transition: opacity .2s ease;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .profile__info-edit-button:hover {
