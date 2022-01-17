@@ -1,4 +1,4 @@
-.profile__info-subtitle {
+.profile__info-status {
   margin: 0;
   margin-top: 16px;
   font-size: 18px;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 900px) {
-  .profile__info-subtitle {
+  .profile__info-status {
     margin-top: 14px;
     font-size: 14px;
   }

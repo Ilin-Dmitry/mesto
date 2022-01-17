@@ -9,19 +9,119 @@
 
 
 
-
+* {
+/*  OUTLINE: 1PX SOLID RED;*/
+}
 
 
 /* === === === === ===
         PROFILE
    === === === === === */
 
+/* === === === === ===
+        POPUP
+   === === === === === */
 
+.popup {
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
 
+.popup__container {
+  box-sizing: border-box;
+  width: 430px;
+  height: 330px;
+  background-color: #fff;
+  padding: 36px;
+  border-radius: 10px;
+  position: relative;
+}
 
+.popup__heading {
+  font-size: 24px;
+  line-height: 1.21;
+  font-weight: 900;
+  color: #000;
+  margin: 0 0 46px;
+}
 
+.popup__input {
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: 400;
+  padding: 0;
+  margin: 0;
+  display: block;
+  width: 100%;
+  height: 27px;
+  margin-top: 30px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
 
+.popup__input::-webkit-input-placeholder {
+  color: #000;
+}
 
+.popup__input::-moz-placeholder {
+  color: #000;
+}
+
+.popup__input:focus {
+
+  outline: none;
+}
+
+.popup__status {
+
+}
+
+.popup__save-button {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.21;
+  margin-top: 48px;
+  padding: 0;
+  color: #fff;
+  background-color: #000;
+  border-radius: 2px;
+  border: none;
+  height: 50px;
+  width: 100%;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.popup__save-button:hover {
+  opacity:.8;
+}
+
+.popup__close-button {
+  width: 32px;
+  height: 32px;
+  background-image: url(images/Close-Icon.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: -40px;
+  right: -40px;
+}
+
+.popup__close-button:hover {
+  background-image: url(images/Close-Icon-hover.svg);
+}
 
 
 
