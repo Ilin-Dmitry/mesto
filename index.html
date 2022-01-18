@@ -27,13 +27,13 @@
         <button class="profile__button"></button>
       </section>
 
-      <section class="popup popup_opened">
+      <section class="popup">
         <form class="popup__container">
           <h2 class="popup__heading">Редактировать профиль</h2>
-          <input class="popup__input" type="text" name="name" placeholder="имя">
-          <input  class="popup__input" type="text" name="status" placeholder="статус">
+          <input class="popup__input popup__input_set_name" type="text" name="name" value="Kusto" placeholder="">
+          <input  class="popup__input popup__input_set_status" type="text" name="status" value="1" placeholder="">
           <button class="popup__save-button" type="submit">Сохранить</button>
-          <button class="popup__close-button"></button>
+          <button class="popup__close-button" type="button"></button>
         </form>
       </section>
 
@@ -94,5 +94,6 @@
       <p class="footer__copyright">© 2021 Mesto Russia</p>
     </footer>
   </div>
+  <script src="script.js"></script>
 </body>
 </html>
