@@ -1,6 +1,7 @@
 let popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 let popup = document.querySelector('.popup'); //Определили блок popup
 let popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
+let popupNameForm = document.querySelector('.popup__form');//определили форму
 let nameInput = popup.querySelector('.popup__input_set_name'); //поле ввода имени
 let statusInput = popup.querySelector('.popup__input_set_status'); //поле ввода статуса
 let pasteName = document.querySelector('.profile__info-title');//сюда вставляем имя (заголовок на странице)
@@ -13,9 +14,6 @@ function popupOpen() {
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницуе в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
 }
-
-
-
 
 
 //функция удаляет popup_opened
@@ -63,8 +61,8 @@ function formSubmitHandler (evt) {
 popupOpenButton.addEventListener('click', popupOpen);
 //вызываем функцию удаления popup_opened, если нажали на крестик
 popupCloseButton.addEventListener('click', popupClose);
-
-popup.addEventListener('submit', formSubmitHandler); //выполняем функцию отправки формы
+//выполняем функцию отправки формы
+popupNameForm.addEventListener('submit', formSubmitHandler);
 
 
 
