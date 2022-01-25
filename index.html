@@ -11,7 +11,6 @@
 
      <header class="header">
       <img class="logo" src="images/Logo.svg" alt="логотип">
-      <!-- <div class="header__line"></div> -->
     </header>
 
      <main>
@@ -19,70 +18,74 @@
        <section class="profile">
         <div class="profile__avatar"></div>
         <div class="profile__info">
-          <h1 class="profile__info-title">Жак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив Кусто </h1>
-          <button class="profile__info-edit-button"></button>
-          <p class="profile__info-status">Исследователь Жак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив КустоЖак-Ив Кусто океана</p>
+          <h1 class="profile__info-title">Жак-Ив Кусто</h1>
+          <button class="profile__info-edit-button" type="button"></button>
+          <p class="profile__info-status">Исследователь океана</p>
         </div>
-        <button class="profile__button"></button>
+        <button class="profile__button" type="button"></button>
       </section>
 
       <section class="popup">
-        <form class="popup__container" method="post" name="submitForm" >
-          <h2 class="popup__heading">Редактировать профиль</h2>
-          <input class="popup__input popup__input_set_name" type="text" name="name" value="Жак-Ив Кусто" placeholder="">
-          <input  class="popup__input popup__input_set_status" type="text" name="status" value="Исследователь океана" placeholder="">
-          <button class="popup__save-button" type="submit">Сохранить</button>
+        <div class="popup__container">
+          <form class="popup__form" method="post" name="submitForm" >
+            <h2 class="popup__heading">Редактировать профиль</h2>
+            <input class="popup__input popup__input_set_name" type="text" name="name" value="Жак-Ив Кусто" placeholder="">
+            <input  class="popup__input popup__input_set_status" type="text" name="status" value="Исследователь океана" placeholder="">
+            <button class="popup__save-button" type="submit">Сохранить</button>
+          </form>
           <button class="popup__close-button" type="button"></button>
-        </form>
+        </div>
+
       </section>
+
 
       <section class="elements">
 
          <div class="element">
           <img class="element__picture" src="images/dombai-evgeny-yundin-L1sJAaT4b78-unsplash.jpg" alt="Домбай">
           <div class="element__wrapper">
-            <p class="element__name">Домбай</p>
-            <button class="element__like"></button>
+            <h2 class="element__name">Домбай Домбаевич Домбаев</h2>
+            <button class="element__like" type="button"></button>
           </div>
          </div>
 
          <div class="element">
             <img class="element__picture" src="images/ural-daniil-silantev-0a1UrqPu48E-unsplash.jpg" alt="Урал">
             <div class="element__wrapper">
-              <p class="element__name">Урал</p>
-              <button class="element__like"></button>
+              <h2 class="element__name">Урал</h2>
+              <button class="element__like" type="button"></button>
             </div>
           </div>
 
          <div class="element">
             <img class="element__picture" src="images/khibiny-sergei-gussev-Xn8MH-taiOQ-unsplash.jpg" alt="Хибины">
             <div class="element__wrapper">
-              <p class="element__name">Хибины</p>
-              <button class="element__like"></button>
+              <h2 class="element__name">Хибины</h2>
+              <button class="element__like" type="button"></button>
             </div>
           </div>
 
          <div class="element">
             <img class="element__picture" src="images/sayan-markus-siemens-UwZYYPsE5PM-unsplash.jpg" alt="Саяны">
             <div class="element__wrapper">
-              <p class="element__name">Саяны</p>
-              <button class="element__like"></button>
+              <h2 class="element__name">Саяны</h2>
+              <button class="element__like" type="button"></button>
             </div>
           </div>
 
          <div class="element">
             <img class="element__picture" src="images/kamchatka-alex-glebov-Jjs9INF8U8M-unsplash.jpg" alt="Камчатка">
             <div class="element__wrapper">
-              <p class="element__name">Камчатка</p>
-              <button class="element__like"></button>
+              <h2 class="element__name">Камчатка</h2>
+              <button class="element__like" type="button"></button>
             </div>
            </div>
 
          <div class="element">
             <img class="element__picture" src="images/altay-alexander-klimm-ATqXQY0B5eE-unsplash.jpg" alt="Алтай">
             <div class="element__wrapper">
-              <p class="element__name">Алтай</p>
-              <button class="element__like"></button>
+              <h2 class="element__name">Алтай</h2>
+              <button class="element__like" type="button"></button>
             </div>
           </div>
 
