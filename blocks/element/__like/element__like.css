@@ -8,13 +8,15 @@
   padding: 0;
   margin-right: 20px;
   cursor: pointer;
-  transition: background-image .2s ease;
+  opacity: 1;
+  transition: opacity .2s ease, background-image .2s ease;
 }
 
 .element__like:hover {
-  background-image: url(../../../images/like-hover.svg);
+  opacity: .5;
 }
 
 .element__like:active {
   background-image: url('../../../images/like-active.svg');
+  opacity: 1;
 }
