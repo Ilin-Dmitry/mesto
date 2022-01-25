@@ -25,69 +25,56 @@
         <button class="profile__button" type="button"></button>
       </section>
 
-      <section class="popup">
-        <div class="popup__container">
-          <form class="popup__form" method="post" name="submitForm" >
-            <h2 class="popup__heading">Редактировать профиль</h2>
-            <input class="popup__input popup__input_set_name" type="text" name="name" value="Жак-Ив Кусто" placeholder="Введите имя">
-            <input  class="popup__input popup__input_set_status" type="text" name="status" value="Исследователь океана" placeholder="Введите статус">
-            <button class="popup__save-button" type="submit">Сохранить</button>
-          </form>
-          <button class="popup__close-button" type="button"></button>
-        </div>
-
-      </section>
-
 
       <section class="elements">
 
-         <div class="element">
+         <article class="element">
           <img class="element__picture" src="images/dombai-evgeny-yundin-L1sJAaT4b78-unsplash.jpg" alt="Домбай">
           <div class="element__wrapper">
             <h2 class="element__name">Домбай</h2>
             <button class="element__like" type="button"></button>
           </div>
-         </div>
+         </article>
 
-         <div class="element">
+         <article class="element">
             <img class="element__picture" src="images/ural-daniil-silantev-0a1UrqPu48E-unsplash.jpg" alt="Урал">
             <div class="element__wrapper">
               <h2 class="element__name">Урал</h2>
               <button class="element__like" type="button"></button>
             </div>
-          </div>
+         </article>
 
-         <div class="element">
+         <article class="element">
             <img class="element__picture" src="images/khibiny-sergei-gussev-Xn8MH-taiOQ-unsplash.jpg" alt="Хибины">
             <div class="element__wrapper">
               <h2 class="element__name">Хибины</h2>
               <button class="element__like" type="button"></button>
             </div>
-          </div>
+         </article>
 
-         <div class="element">
+         <article class="element">
             <img class="element__picture" src="images/sayan-markus-siemens-UwZYYPsE5PM-unsplash.jpg" alt="Саяны">
             <div class="element__wrapper">
               <h2 class="element__name">Саяны</h2>
               <button class="element__like" type="button"></button>
             </div>
-          </div>
+         </article>
 
-         <div class="element">
+         <article class="element">
             <img class="element__picture" src="images/kamchatka-alex-glebov-Jjs9INF8U8M-unsplash.jpg" alt="Камчатка">
             <div class="element__wrapper">
               <h2 class="element__name">Камчатка</h2>
               <button class="element__like" type="button"></button>
             </div>
-           </div>
+         </article>
 
-         <div class="element">
+         <article class="element">
             <img class="element__picture" src="images/altay-alexander-klimm-ATqXQY0B5eE-unsplash.jpg" alt="Алтай">
             <div class="element__wrapper">
               <h2 class="element__name">Алтай</h2>
               <button class="element__like" type="button"></button>
             </div>
-          </div>
+         </article>
 
       </section>
     </main>
@@ -95,6 +82,19 @@
     <footer class="footer">
       <p class="footer__copyright">© 2021 Mesto Russia</p>
     </footer>
+
+    <section class="popup">
+      <div class="popup__container">
+        <form class="popup__form" method="post" name="formNameStatus" >
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <input class="popup__input popup__input_set_name" type="text" name="name" value="Жак-Ив Кусто" placeholder="Введите имя" required>
+          <input  class="popup__input popup__input_set_status" type="text" name="status" value="Исследователь океана" placeholder="Введите статус" required>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </form>
+        <button class="popup__close-button" type="button"></button>
+      </div>
+
+    </section>
   </div>
   <script src="scripts/index.js"></script>
 </body>
