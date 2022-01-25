@@ -21,5 +21,6 @@
   .profile__button {
     width: 100%;
     margin: 0 auto;
+    background-size: 16px;
   }
 }
