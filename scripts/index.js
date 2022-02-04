@@ -7,6 +7,68 @@ let statusInput = popup.querySelector('.popup__input_set_status'); //поле в
 let pasteName = document.querySelector('.profile__info-title');//сюда вставляем имя (заголовок на странице)
 let pasteStatus = document.querySelector('.profile__info-status');// сюда вставляем статус (подзаголовок на странице)
 
+const profileButton = document.querySelector('.profile__button');
+const elements = document.querySelector('.elements');
+const templateElement = document.querySelector('.element__template').content;
+
+
+
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+
+initialCards.forEach(function (el) {
+  const cardsTemplate = templateElement.cloneNode(true);
+
+  cardsTemplate.querySelector('.element__name').textContent = el.name;
+  cardsTemplate.querySelector('.element__picture').src = el.link;
+  elements.append(cardsTemplate);
+})
+/*function render (item) {
+  initialCards.forEach(renderCard('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg', initialCards[item].name))
+}
+console.log(initialCards[2].name);
+
+
+function renderCard (url, name) {
+  elements.insertAdjacentHTML('beforeend', `
+  <article class="element">
+  <img class="element__picture" src="${url}">
+  <div class="element__wrapper">
+    <h2 class="element__name">${name}</h2>
+    <button class="element__like" type="button"></button>
+  </div>
+ </article>
+  `)
+}
+//console.log(initialCards[1].name);
+
+render ()
+*/
 
 //эта фунция добавляет popup класс popup_opened и вставляет в инпуты значения со страницы
 function popupOpen() {
@@ -20,7 +82,6 @@ function popupOpen() {
 function popupClose() {
   popup.classList.remove('popup_opened');
 }
-
 
 
 /*
