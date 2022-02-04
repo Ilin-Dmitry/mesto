@@ -11,6 +11,9 @@ const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
 
+const newItem = document.querySelector('.new-item');
+const newItemCloseButton = document.querySelector('.new-item__close-button');
+
 
 
 const initialCards = [
@@ -83,6 +86,14 @@ function popupClose() {
   popup.classList.remove('popup_opened');
 }
 
+function newItemOpen () {
+  newItem.classList.add('new-item_opened');
+}
+
+function newItemClose () {
+  newItem.classList.remove('new-item_opened');
+}
+
 
 /*
 //функцию удаления popup_opened, если нажали мимо формы
@@ -124,6 +135,10 @@ popupOpenButton.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupClose);
 //выполняем функцию отправки формы
 popupNameForm.addEventListener('submit', formSubmitHandler);
+
+profileButton.addEventListener('click', newItemOpen);
+newItemCloseButton.addEventListener('click', newItemClose);
+
 
 
 

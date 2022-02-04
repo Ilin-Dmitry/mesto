@@ -45,8 +45,20 @@
         </form>
         <button class="popup__close-button" type="button"></button>
       </div>
-
     </section>
+
+    <section class="new-item">
+      <div class="new-item__container">
+        <form class="new-item__form" method="post" name="formNewItem" >
+          <h2 class="new-item__heading">Новое место</h2>
+          <input class="new-item__input new-item__input_set_naming" type="text" name="naming" value="" placeholder="Название" required>
+          <input  class="new-item__input new-item__input_set_link" type="text" name="link" value="" placeholder="Ссылка на картинку" required>
+          <button class="new-item__create-button" type="submit">Создать</button>
+        </form>
+        <button class="new-item__close-button" type="button"></button>
+      </div>
+    </section>
+
   </div>
   <template class="element__template">
     <article class="element">
