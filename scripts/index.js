@@ -10,9 +10,13 @@ let pasteStatus = document.querySelector('.profile__info-status');// сюда в
 const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
+const newItemCreateButton = document.querySelector('.new-item__create-button');
+
 
 const newItem = document.querySelector('.new-item');
 const newItemCloseButton = document.querySelector('.new-item__close-button');
+
+
 
 
 
@@ -43,7 +47,7 @@ const initialCards = [
   }
 ];
 
-
+//добавляем initialCards на страницу
 initialCards.forEach(function (el) {
   const cardsTemplate = templateElement.cloneNode(true);
 
@@ -51,32 +55,12 @@ initialCards.forEach(function (el) {
   cardsTemplate.querySelector('.element__picture').src = el.link;
   elements.append(cardsTemplate);
 })
-/*function render (item) {
-  initialCards.forEach(renderCard('https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg', initialCards[item].name))
-}
-console.log(initialCards[2].name);
 
-
-function renderCard (url, name) {
-  elements.insertAdjacentHTML('beforeend', `
-  <article class="element">
-  <img class="element__picture" src="${url}">
-  <div class="element__wrapper">
-    <h2 class="element__name">${name}</h2>
-    <button class="element__like" type="button"></button>
-  </div>
- </article>
-  `)
-}
-//console.log(initialCards[1].name);
-
-render ()
-*/
 
 //эта фунция добавляет popup класс popup_opened и вставляет в инпуты значения со страницы
 function popupOpen() {
   popup.classList.add('popup_opened');
-  nameInput.value = pasteName.textContent; // вставляем значение имени на страницуе в поле ввода имени
+  nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
 }
 
@@ -129,6 +113,29 @@ function formSubmitHandler (evt) {
   popupClose();//Закрываем popup
 }
 
+
+//Функция добавления карточки в начало страницы
+function addCardBefore (item) {
+  const cardsTemplate = templateElement.cloneNode(true);
+  cardsTemplate.querySelector('.element__name').textContent = item.name;
+  cardsTemplate.querySelector('.element__picture').src = item.link;
+  elements.append(cardsTemplate);
+}
+
+//Функция обработки данных формы new-item
+function newItemFormHandler (evt) {
+  evt.preventDefault();
+  const placeInputValue = document.querySelector('.new-item__input_set_place').value;
+  const linkInputValue = document.querySelector('.new-item__input_set_link').value;
+  let newPlace = {};
+  newPlace.name = placeInputValue;
+  newPlace.link = linkInputValue;
+
+  addCardBefore(newPlace);
+}
+
+newItemCreateButton.addEventListener('click', newItemFormHandler)
+
 //вызываем функцию popupOpen при клике
 popupOpenButton.addEventListener('click', popupOpen);
 //вызываем функцию удаления popup_opened, если нажали на крестик
@@ -138,8 +145,7 @@ popupNameForm.addEventListener('submit', formSubmitHandler);
 
 profileButton.addEventListener('click', newItemOpen);
 newItemCloseButton.addEventListener('click', newItemClose);
-
-
+//test
 
 
 
