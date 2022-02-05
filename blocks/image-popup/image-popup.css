@@ -1,0 +1,17 @@
+.image-popup {
+  background-color: rgba (0, 0, 0, .5);
+
+}
+
+.image-popup__wrapper {
+
+}
+
+.image-popup__image {
+  max-width: 75vh;
+  max-height: 75vh;
+}
+
+.image-popup__title {}
+
+.image-popup__close-button {}
