@@ -13,6 +13,7 @@ const templateElement = document.querySelector('.element__template').content;
 const newItemCreateButton = document.querySelector('.new-item__create-button');
 
 
+
 const newItem = document.querySelector('.new-item');
 const newItemCloseButton = document.querySelector('.new-item__close-button');
 
@@ -53,7 +54,12 @@ initialCards.forEach(function (el) {
 
   cardsTemplate.querySelector('.element__name').textContent = el.name;
   cardsTemplate.querySelector('.element__picture').src = el.link;
+  //добавляем обработчик лайка
+  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle)
+
   elements.append(cardsTemplate);
+
+
 })
 
 
@@ -119,7 +125,10 @@ function addCardBefore (item) {
   const cardsTemplate = templateElement.cloneNode(true);
   cardsTemplate.querySelector('.element__name').textContent = item.name;
   cardsTemplate.querySelector('.element__picture').src = item.link;
-  elements.append(cardsTemplate);
+  //добавляем обработчик лайка для вновь добавленых элементов
+  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle)
+
+  elements.prepend(cardsTemplate);
 }
 
 //Функция обработки данных формы new-item
@@ -132,6 +141,12 @@ function newItemFormHandler (evt) {
   newPlace.link = linkInputValue;
 
   addCardBefore(newPlace);
+  newItemClose ()
+
+}
+
+function likeToggle (evt) {
+  evt.target.classList.toggle('element__like_active');
 }
 
 newItemCreateButton.addEventListener('click', newItemFormHandler)
@@ -145,9 +160,6 @@ popupNameForm.addEventListener('submit', formSubmitHandler);
 
 profileButton.addEventListener('click', newItemOpen);
 newItemCloseButton.addEventListener('click', newItemClose);
-//test
-
-
 
 
 
