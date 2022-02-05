@@ -55,7 +55,9 @@ initialCards.forEach(function (el) {
   cardsTemplate.querySelector('.element__name').textContent = el.name;
   cardsTemplate.querySelector('.element__picture').src = el.link;
   //добавляем обработчик лайка
-  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle)
+  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
+  //добавляем обработчик удаления карточки
+  cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
 
   elements.append(cardsTemplate);
 
@@ -126,7 +128,9 @@ function addCardBefore (item) {
   cardsTemplate.querySelector('.element__name').textContent = item.name;
   cardsTemplate.querySelector('.element__picture').src = item.link;
   //добавляем обработчик лайка для вновь добавленых элементов
-  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle)
+  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
+  //добавляем обработчик удаления карточки
+  cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
 
   elements.prepend(cardsTemplate);
 }
@@ -149,6 +153,11 @@ function likeToggle (evt) {
   evt.target.classList.toggle('element__like_active');
 }
 
+function removeElement (evt) {
+  const eventTarget = evt.target;
+  eventTarget.closest('.element').remove();
+}
+
 newItemCreateButton.addEventListener('click', newItemFormHandler)
 
 //вызываем функцию popupOpen при клике
@@ -160,6 +169,4 @@ popupNameForm.addEventListener('submit', formSubmitHandler);
 
 profileButton.addEventListener('click', newItemOpen);
 newItemCloseButton.addEventListener('click', newItemClose);
-
-
 
