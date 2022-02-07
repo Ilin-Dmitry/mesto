@@ -140,7 +140,6 @@ function addCardBefore (item) {
   const cardsTemplate = templateElement.cloneNode(true);
   cardsTemplate.querySelector('.element__name').textContent = item.name;
   cardsTemplate.querySelector('.element__picture').src = item.link;
-  console.log(item.name);
   //добавляем обработчик лайка для вновь добавленых элементов
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки

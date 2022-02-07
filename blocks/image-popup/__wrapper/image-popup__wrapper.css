@@ -1,0 +1,5 @@
+.image-popup__wrapper {
+  display: table;
+  margin: 0;
+  position: relative;
+}
