@@ -140,26 +140,32 @@ function addCardBefore (item) {
   const cardsTemplate = templateElement.cloneNode(true);
   cardsTemplate.querySelector('.element__name').textContent = item.name;
   cardsTemplate.querySelector('.element__picture').src = item.link;
+  console.log(item.name);
   //добавляем обработчик лайка для вновь добавленых элементов
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки
   cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
-  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen)
+  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen);
 
   elements.prepend(cardsTemplate);
+
 }
 
 //Функция обработки данных формы new-item
 function newItemFormHandler (evt) {
   evt.preventDefault();
   const placeInputValue = document.querySelector('.new-item__input_set_place').value;
+  document.querySelector('.new-item__input_set_place').value = "";//обнуляем значение места в поле ввода
   const linkInputValue = document.querySelector('.new-item__input_set_link').value;
+  document.querySelector('.new-item__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
+
   let newPlace = {};
   newPlace.name = placeInputValue;
   newPlace.link = linkInputValue;
 
   addCardBefore(newPlace);
-  newItemClose ()
+
+  newItemClose ();
 
 }
 
