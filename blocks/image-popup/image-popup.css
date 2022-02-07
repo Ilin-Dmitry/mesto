@@ -1,17 +1,63 @@
-.image-popup {
-  background-color: rgba (0, 0, 0, .5);
 
+.image-popup {
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 .image-popup__wrapper {
-
+  margin: 0;
+  position: relative;
 }
 
 .image-popup__image {
-  max-width: 75vh;
+  max-width: 75vw;
   max-height: 75vh;
+  margin: 0;
 }
 
-.image-popup__title {}
+.image-popup__title {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.21;
+  width: 75vw;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow:hidden;
+}
 
-.image-popup__close-button {}
+.image-popup__close-button {
+  width: 32px;
+  height: 32px;
+  background-image: url(../../../images/close-Icon.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  opacity: 1;
+  transition: opacity .2s ease;
+}
+
+.image-popup__close-button:hover {
+  opacity: .6;
+}
+
+@media screen and (max-width: 620px) {
+  .image-popup__close-button {
+    width: 20px;
+    height: 20px;
+    top: -48px;
+    right: 0;
+  }
+}
