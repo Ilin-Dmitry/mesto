@@ -12,11 +12,10 @@ const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
 const newItemCreateButton = document.querySelector('.new-item__create-button');
 
-
-
 const newItem = document.querySelector('.new-item');
 const newItemCloseButton = document.querySelector('.new-item__close-button');
 
+const imagePopup = document.querySelector('.image-popup');
 
 
 
@@ -58,12 +57,22 @@ initialCards.forEach(function (el) {
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки
   cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
+  //добавим обработчик открытия картинки
+  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen)
 
   elements.append(cardsTemplate);
-
-
 })
 
+//Функция открытия image-popup
+function imagePopupOpen (evt) {
+  const target = evt.target;
+  const title = target.closest('.element').querySelector('.element__name');
+  const image = imagePopup.querySelector('.image-popup__image');
+  image.src = target.src;
+  imagePopup.querySelector('.image-popup__title').textContent = title.textContent;
+  imagePopup.querySelector('.image-popup__close-button').addEventListener('click', imagePopupClose);
+  imagePopup.classList.add('image-popup_opened');
+}
 
 //эта фунция добавляет popup класс popup_opened и вставляет в инпуты значения со страницы
 function popupOpen() {
@@ -84,6 +93,10 @@ function newItemOpen () {
 
 function newItemClose () {
   newItem.classList.remove('new-item_opened');
+}
+
+function imagePopupClose () {
+  imagePopup.classList.remove('image-popup_opened');
 }
 
 
@@ -131,6 +144,7 @@ function addCardBefore (item) {
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки
   cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
+  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen)
 
   elements.prepend(cardsTemplate);
 }

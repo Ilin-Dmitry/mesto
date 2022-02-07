@@ -1,8 +1,7 @@
-
 .image-popup {
   position: fixed;
   z-index: 1;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, .5);
@@ -12,7 +11,12 @@
   left: 0;
 }
 
+.image-popup_opened {
+  display: flex;
+}
+
 .image-popup__wrapper {
+  display: table;
   margin: 0;
   position: relative;
 }
@@ -24,13 +28,15 @@
 }
 
 .image-popup__title {
+  display: table-caption;
+  caption-side: bottom;
   margin-top: 10px;
   font-size: 12px;
   line-height: 1.21;
-  width: 75vw;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow:hidden;
+  max-width: 75vw;
+  max-height: 12px;
+  overflow: hidden;
+
 }
 
 .image-popup__close-button {
