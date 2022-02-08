@@ -1,3 +1,5 @@
 .new-item_opened {
-  display: flex;
+  height: 100%;
+  opacity: 1;
+  transition: opacity .3s 0s, height 0s 0s;
 }

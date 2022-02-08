@@ -1,7 +1,7 @@
 .new-item {
   position: fixed;
   z-index: 1;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -9,4 +9,7 @@
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, .5);
+  height: 0;
+  opacity: 0;
+  transition: opacity .3s, height 0s .5s;
 }
