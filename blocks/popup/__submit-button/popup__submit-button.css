@@ -1,4 +1,4 @@
-.new-item__create-button {
+.popup__submit-button {
   font-size: 18px;
   font-weight: 400;
   line-height: 1.21;
@@ -15,12 +15,12 @@
   transition: opacity .2s ease;
 }
 
-.new-item__create-button:hover {
+.popup__submit-button:hover {
   opacity:.8;
 }
 
 @media screen and (max-width: 620px) {
-  .new-item__create-button {
+  .popup__submit-button {
     font-size: 14px;
   }
 }

@@ -1,6 +1,0 @@
-.image-popup_opened {
-  height: 100%;
-  width: 100%;
-  opacity: 1;
-  transition: opacity .3s 0s, height 0s 0s, width 0s 0s;
-}

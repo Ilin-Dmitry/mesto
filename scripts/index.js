@@ -10,10 +10,10 @@ let pasteStatus = document.querySelector('.profile__info-status');// сюда в
 const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
-const popupCreateButton = document.querySelector('.popup__create-button');
+const popupCreateButton = document.querySelector('.popup__submit-button_type_create');
 
 const popupNew = document.querySelector('.popup_sec_new');
-const newItemCloseButton = document.querySelector('.new-item__close-button');
+// const newItemCloseButton = document.querySelector('.new-item__close-button');
 
 const imagePopup = document.querySelector('.popup_sec_img');
 
@@ -89,14 +89,13 @@ function closePopup () {
   popupOpened.classList.remove('popup_opened');
 }
 
-//Функция открытия image-popup
+//Функция открытия картинки
 function imagePopupOpen (evt) {
   const target = evt.target;
-  console.log(target);
   const title = target.closest('.element').querySelector('.element__name');
-  const image = imagePopup.querySelector('.image-popup__image');
+  const image = imagePopup.querySelector('.popup__image');
   image.src = target.src;
-  imagePopup.querySelector('.image-popup__title').textContent = title.textContent;
+  imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
   imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
   imagePopup.classList.add('popup_opened');
 }
