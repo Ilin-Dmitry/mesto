@@ -57,7 +57,7 @@ function createCard (el) {
   //добавляем обработчик удаления карточки
   cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
   //добавим обработчик открытия картинки
-  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen);
+  cardsTemplate.querySelector('.element__picture').addEventListener('click', openImagePopup);
   return cardsTemplate;
 }
 //Функция отрисовки карточки
@@ -70,20 +70,50 @@ initialCards.forEach(renderCard);
 
 
 
+
+function openPopup (item) {
+  item.classList.add('popup_opened')
+}
+
+
+
+
+
 //эта фунция добавляет popup класс popup_opened и вставляет в инпуты значения со страницы
-function popupOpen() {
-  popup.classList.add('popup_opened');
+function openPropfilePopup() {
+  openPopup (popup);
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
   closeBtnPopup()
 }
 
-function popupNewOpen (evt) {
-  popupNew.classList.add('popup_opened');
+function openNewCardPopup (evt) {
+  openPopup (popupNew);
   closeBtnPopup ();
 }
+
+//Функция открытия картинки
+function openImagePopup (evt) {
+  const target = evt.target;
+  const title = target.closest('.element').querySelector('.element__name');
+  const image = imagePopup.querySelector('.popup__image');
+  image.src = target.src;
+  imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
+  imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
+  openPopup (imagePopup);
+
+}
+
+
+
+
+
+
+
+
+
 //закрытие popup при нажатии на крестик
- function closeBtnPopup () {
+function closeBtnPopup () {
   const popupOpened = document.querySelector('.popup_opened');
   const btnClose = popupOpened.querySelector('.popup__close-button');
   btnClose.addEventListener('click', closePopup)
@@ -94,16 +124,15 @@ function closePopup () {
   popupOpened.classList.remove('popup_opened');
 }
 
-//Функция открытия картинки
-function imagePopupOpen (evt) {
-  const target = evt.target;
-  const title = target.closest('.element').querySelector('.element__name');
-  const image = imagePopup.querySelector('.popup__image');
-  image.src = target.src;
-  imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
-  imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
-  imagePopup.classList.add('popup_opened');
-}
+
+
+
+
+
+
+
+
+
 
 
 //Функция отправки данных формы
@@ -159,13 +188,13 @@ function removeElement (evt) {
 popupCreateButton.addEventListener('click', createNewCard);
 
 //вызываем функцию popupOpen при клике
-popupOpenButton.addEventListener('click', popupOpen);
+popupOpenButton.addEventListener('click', openPropfilePopup);
 //вызываем функцию удаления popup_opened, если нажали на крестик
 //popupCloseButton.addEventListener('click', popupClose);
 //выполняем функцию отправки формы
 popupNameForm.addEventListener('submit', formSubmitHandler);
 
-profileButton.addEventListener('click', popupNewOpen);
+profileButton.addEventListener('click', openNewCardPopup);
 //newItemCloseButton.addEventListener('click', newItemClose);
 
 
