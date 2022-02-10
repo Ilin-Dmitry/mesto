@@ -13,7 +13,7 @@ const templateElement = document.querySelector('.element__template').content;
 const popupCreateButton = document.querySelector('.popup__submit-button_type_create');
 const popupNew = document.querySelector('.popup_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
-
+const image = imagePopup.querySelector('.popup__image');
 
 const initialCards = [
   {
@@ -82,12 +82,10 @@ function openNewCardPopup (evt) {
 function openImagePopup (evt) {
   const target = evt.target;
   const title = target.closest('.element').querySelector('.element__name');
-  const image = imagePopup.querySelector('.popup__image');
   image.src = target.src;
   imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
   imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
   openPopup (imagePopup);
-
 }
 //закрытие popup
 function closePopup () {
@@ -100,16 +98,11 @@ function closeBtnPopup () {
   const btnClose = popupOpened.querySelector('.popup__close-button');
   btnClose.addEventListener('click', closePopup)
  }
-
 //Функция отправки данных формы
 function handleSubmitForm (evt) {
   evt.preventDefault();//отменяем перезагрузку страницы
-  let name //объявили переменную, в которой хранится введенное значение имени
-  let status // объявили переменную, в которой хранится введенное значение статуса
-  name = nameInput.value; //берем значение из поля ввода
-  status = statusInput.value; //берем значение из поля ввода
-  pasteName.textContent = name;//переносим значение инпута в заголовок
-  pasteStatus.textContent = status; //переносим значение статуса на страницу
+  pasteName.textContent = nameInput.value;
+  pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
   closePopup();//Закрываем popup
 }
 //Функция обработки данных формы new-item
@@ -119,7 +112,7 @@ function createNewCard (evt) {
   document.querySelector('.popup__input_set_place').value = "";//обнуляем значение места в поле ввода
   const linkInputValue = document.querySelector('.popup__input_set_link').value;
   document.querySelector('.popup__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
-  let newPlace = {};
+  const newPlace = {};
   newPlace.name = placeInputValue;
   newPlace.link = linkInputValue;
   renderCard(newPlace);
