@@ -1,11 +1,11 @@
-let popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
-let popup = document.querySelector('.popup'); //Определили блок popup
-let popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
-let popupNameForm = document.querySelector('.popup__form');//определили форму
-let nameInput = popup.querySelector('.popup__input_set_name'); //поле ввода имени
-let statusInput = popup.querySelector('.popup__input_set_status'); //поле ввода статуса
-let pasteName = document.querySelector('.profile__info-title');//сюда вставляем имя (заголовок на странице)
-let pasteStatus = document.querySelector('.profile__info-status');// сюда вставляем статус (подзаголовок на странице)
+const popup = document.querySelector('.popup'); //Определили блок popup
+const popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
+const popupCloseButton = popup.querySelector('.popup__close-button');//определили крестик
+const popupNameForm = document.querySelector('.popup__form');//определили форму
+const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
+const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
+const pasteName = document.querySelector('.profile__info-title');//сюда вставляем имя (заголовок на странице)
+const pasteStatus = document.querySelector('.profile__info-status');// сюда вставляем статус (подзаголовок на странице)
 
 const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
