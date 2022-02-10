@@ -10,12 +10,12 @@ let pasteStatus = document.querySelector('.profile__info-status');// сюда в
 const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
-const newItemCreateButton = document.querySelector('.new-item__create-button');
+const popupCreateButton = document.querySelector('.popup__create-button');
 
-const newItem = document.querySelector('.new-item');
+const popupNew = document.querySelector('.popup_sec_new');
 const newItemCloseButton = document.querySelector('.new-item__close-button');
 
-const imagePopup = document.querySelector('.image-popup');
+const imagePopup = document.querySelector('.popup_sec_img');
 
 
 
@@ -63,56 +63,43 @@ initialCards.forEach(function (el) {
   elements.append(cardsTemplate);
 })
 
-//Функция открытия image-popup
-function imagePopupOpen (evt) {
-  const target = evt.target;
-  const title = target.closest('.element').querySelector('.element__name');
-  const image = imagePopup.querySelector('.image-popup__image');
-  image.src = target.src;
-  imagePopup.querySelector('.image-popup__title').textContent = title.textContent;
-  imagePopup.querySelector('.image-popup__close-button').addEventListener('click', imagePopupClose);
-  imagePopup.classList.add('image-popup_opened');
-}
+
 
 //эта фунция добавляет popup класс popup_opened и вставляет в инпуты значения со страницы
 function popupOpen() {
   popup.classList.add('popup_opened');
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
+  closeBtnPopup()
 }
 
-
-//функция удаляет popup_opened
-function popupClose() {
-  popup.classList.remove('popup_opened');
+function popupNewOpen (evt) {
+  popupNew.classList.add('popup_opened');
+  closeBtnPopup ();
+}
+//закрытие popup при нажатии на крестик
+ function closeBtnPopup () {
+  const popupOpened = document.querySelector('.popup_opened');
+  const btnClose = popupOpened.querySelector('.popup__close-button');
+  btnClose.addEventListener('click', closePopup)
+ }
+//закрытие popup
+function closePopup () {
+  const popupOpened = document.querySelector('.popup_opened');
+  popupOpened.classList.remove('popup_opened');
 }
 
-function newItemOpen () {
-  newItem.classList.add('new-item_opened');
+//Функция открытия image-popup
+function imagePopupOpen (evt) {
+  const target = evt.target;
+  console.log(target);
+  const title = target.closest('.element').querySelector('.element__name');
+  const image = imagePopup.querySelector('.image-popup__image');
+  image.src = target.src;
+  imagePopup.querySelector('.image-popup__title').textContent = title.textContent;
+  imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
+  imagePopup.classList.add('popup_opened');
 }
-
-function newItemClose () {
-  newItem.classList.remove('new-item_opened');
-}
-
-function imagePopupClose () {
-  imagePopup.classList.remove('image-popup_opened');
-}
-
-
-/*
-//функцию удаления popup_opened, если нажали мимо формы
-function popupCloseField() {
-  //console.log(event.target, event.currentTarget); //Если раскомментировать, увидим значения таргетов
-  if (event.target === event.currentTarget) {
-    popupClose()
-  }
-}
-
-//и вызов этой функции
-popup.addEventListener('click', popupCloseField);
-
-*/
 
 
 //Функция отправки данных формы
@@ -131,7 +118,7 @@ function formSubmitHandler (evt) {
   pasteName.textContent = name;//переносим значение инпута в заголовок
   pasteStatus.textContent = status; //переносим значение статуса на страницу
 
-  popupClose();//Закрываем popup
+  closePopup();//Закрываем popup
 }
 
 
@@ -151,12 +138,12 @@ function addCardBefore (item) {
 }
 
 //Функция обработки данных формы new-item
-function newItemFormHandler (evt) {
+function createNewCard (evt) {
   evt.preventDefault();
-  const placeInputValue = document.querySelector('.new-item__input_set_place').value;
-  document.querySelector('.new-item__input_set_place').value = "";//обнуляем значение места в поле ввода
-  const linkInputValue = document.querySelector('.new-item__input_set_link').value;
-  document.querySelector('.new-item__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
+  const placeInputValue = document.querySelector('.popup__input_set_place').value;
+  document.querySelector('.popup__input_set_place').value = "";//обнуляем значение места в поле ввода
+  const linkInputValue = document.querySelector('.popup__input_set_link').value;
+  document.querySelector('.popup__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
 
   let newPlace = {};
   newPlace.name = placeInputValue;
@@ -164,9 +151,9 @@ function newItemFormHandler (evt) {
 
   addCardBefore(newPlace);
 
-  newItemClose ();
-
+  closePopup ();
 }
+
 
 function likeToggle (evt) {
   evt.target.classList.toggle('element__like_active');
@@ -177,15 +164,21 @@ function removeElement (evt) {
   eventTarget.closest('.element').remove();
 }
 
-newItemCreateButton.addEventListener('click', newItemFormHandler)
+
+
+
+popupCreateButton.addEventListener('click', createNewCard);
 
 //вызываем функцию popupOpen при клике
 popupOpenButton.addEventListener('click', popupOpen);
 //вызываем функцию удаления popup_opened, если нажали на крестик
-popupCloseButton.addEventListener('click', popupClose);
+//popupCloseButton.addEventListener('click', popupClose);
 //выполняем функцию отправки формы
 popupNameForm.addEventListener('submit', formSubmitHandler);
 
-profileButton.addEventListener('click', newItemOpen);
-newItemCloseButton.addEventListener('click', newItemClose);
+profileButton.addEventListener('click', popupNewOpen);
+//newItemCloseButton.addEventListener('click', newItemClose);
 
+
+
+//popupCloseButton.addEventListener('click', closePopup);
