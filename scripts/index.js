@@ -1,6 +1,6 @@
 const popup = document.querySelector('.popup'); //Определили блок popup
 const popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
-const popupCloseButton = popup.querySelector('.popup__close-button');//определили крестик
+const popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
 const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
@@ -53,6 +53,7 @@ initialCards.forEach(function (el) {
 
   cardsTemplate.querySelector('.element__name').textContent = el.name;
   cardsTemplate.querySelector('.element__picture').src = el.link;
+  cardsTemplate.querySelector('.element__picture').alt = el.name;
   //добавляем обработчик лайка
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки
@@ -126,6 +127,7 @@ function addCardBefore (item) {
   const cardsTemplate = templateElement.cloneNode(true);
   cardsTemplate.querySelector('.element__name').textContent = item.name;
   cardsTemplate.querySelector('.element__picture').src = item.link;
+  cardsTemplate.querySelector('.element__picture').alt = item.name;
   //добавляем обработчик лайка для вновь добавленых элементов
   cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
   //добавляем обработчик удаления карточки
