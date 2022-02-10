@@ -46,11 +46,9 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-//добавляем initialCards на страницу
-initialCards.forEach(function (el) {
+//Функция создания карточки
+function createCard (el) {
   const cardsTemplate = templateElement.cloneNode(true);
-
   cardsTemplate.querySelector('.element__name').textContent = el.name;
   cardsTemplate.querySelector('.element__picture').src = el.link;
   cardsTemplate.querySelector('.element__picture').alt = el.name;
@@ -59,10 +57,16 @@ initialCards.forEach(function (el) {
   //добавляем обработчик удаления карточки
   cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
   //добавим обработчик открытия картинки
-  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen)
+  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen);
+  return cardsTemplate;
+}
+//Функция отрисовки карточки
+function renderCard (el) {
+  elements.prepend(createCard(el));
+}
+initialCards.forEach(renderCard);
 
-  elements.append(cardsTemplate);
-})
+
 
 
 
@@ -122,22 +126,6 @@ function formSubmitHandler (evt) {
 }
 
 
-//Функция добавления карточки в начало страницы
-function addCardBefore (item) {
-  const cardsTemplate = templateElement.cloneNode(true);
-  cardsTemplate.querySelector('.element__name').textContent = item.name;
-  cardsTemplate.querySelector('.element__picture').src = item.link;
-  cardsTemplate.querySelector('.element__picture').alt = item.name;
-  //добавляем обработчик лайка для вновь добавленых элементов
-  cardsTemplate.querySelector('.element__like').addEventListener('click', likeToggle);
-  //добавляем обработчик удаления карточки
-  cardsTemplate.querySelector('.element__remove').addEventListener('click', removeElement);
-  cardsTemplate.querySelector('.element__picture').addEventListener('click', imagePopupOpen);
-
-  elements.prepend(cardsTemplate);
-
-}
-
 //Функция обработки данных формы new-item
 function createNewCard (evt) {
   evt.preventDefault();
@@ -150,7 +138,7 @@ function createNewCard (evt) {
   newPlace.name = placeInputValue;
   newPlace.link = linkInputValue;
 
-  addCardBefore(newPlace);
+  renderCard(newPlace);
 
   closePopup ();
 }
