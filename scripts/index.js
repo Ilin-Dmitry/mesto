@@ -16,6 +16,8 @@ const imagePopup = document.querySelector('.popup_sec_img');
 const image = imagePopup.querySelector('.popup__image');
 
 const btnClose = document.querySelectorAll('.popup__close-button');
+const placeInput = document.querySelector('.popup__input_set_place');
+const linkInput = document.querySelector('.popup__input_set_link');
 
 const initialCards = [
   {
@@ -101,18 +103,20 @@ function handleSubmitForm (evt) {
   pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
   closePopup();//Закрываем popup
 }
+
 //Функция обработки данных формы new-item
 function createNewCard (evt) {
   evt.preventDefault();
-  const placeInputValue = document.querySelector('.popup__input_set_place').value;
-  document.querySelector('.popup__input_set_place').value = "";//обнуляем значение места в поле ввода
-  const linkInputValue = document.querySelector('.popup__input_set_link').value;
-  document.querySelector('.popup__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
+  // const placeInputValue = document.querySelector('.popup__input_set_place').value;
+  // document.querySelector('.popup__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
   const newPlace = {};
-  newPlace.name = placeInputValue;
-  newPlace.link = linkInputValue;
+  newPlace.name = placeInput.value;
+  newPlace.link = linkInput.value;
   renderCard(newPlace);
   closePopup ();
+  placeInput.value = "";//обнуляем значение места в поле ввода
+  linkInput.value = "";
+
 }
 //Функция переключения лайка
 function toggleLikeButton (evt) {
