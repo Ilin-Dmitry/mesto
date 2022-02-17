@@ -15,6 +15,8 @@ const popupNew = document.querySelector('.popup_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
 const image = imagePopup.querySelector('.popup__image');
 
+const btnClose = document.querySelectorAll('.popup__close-button');
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -71,20 +73,19 @@ function openPropfilePopup() {
   openPopup (popup);
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
-  closeBtnPopup()
 }
 //Функция открывает popup создания новой карточки
 function openNewCardPopup (evt) {
   openPopup (popupNew);
-  closeBtnPopup ();
 }
 //Функция открытия картинки
 function openImagePopup (evt) {
   const target = evt.target;
   const title = target.closest('.element').querySelector('.element__name');
   image.src = target.src;
+  image.alt = title.textContent;
   imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
-  imagePopup.querySelector('.popup__close-button').addEventListener('click', closeBtnPopup);
+
   openPopup (imagePopup);
 }
 //закрытие popup
@@ -92,12 +93,7 @@ function closePopup () {
   const popupOpened = document.querySelector('.popup_opened');
   popupOpened.classList.remove('popup_opened');
 }
-//закрытие popup при нажатии на крестик
-function closeBtnPopup () {
-  const popupOpened = document.querySelector('.popup_opened');
-  const btnClose = popupOpened.querySelector('.popup__close-button');
-  btnClose.addEventListener('click', closePopup)
- }
+
 //Функция отправки данных формы
 function handleSubmitForm (evt) {
   evt.preventDefault();//отменяем перезагрузку страницы
@@ -129,6 +125,10 @@ function removeCard (evt) {
 }
 
 
+//добавляем слушатель к каждой кнопке закрытия
+btnClose.forEach((btn) => {
+  btn.addEventListener('click', closePopup);
+})
 
 //Обработчик кнопки "создать" добавления карточки
 popupCreateButton.addEventListener('click', createNewCard);
@@ -138,3 +138,5 @@ popupOpenButton.addEventListener('click', openPropfilePopup);
 popupNameForm.addEventListener('submit', handleSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
 profileButton.addEventListener('click', openNewCardPopup);
+
+
