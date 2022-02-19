@@ -1,4 +1,5 @@
 const popup = document.querySelector('.popup'); //Определили блок popup
+
 const popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
 const popupNameForm = document.querySelector('.popup__form');//определили форму
@@ -70,7 +71,11 @@ function renderCard (el) {
 initialCards.forEach(renderCard);
 //функция открытия попапа
 function openPopup (item) {
-  item.classList.add('popup_opened')
+  item.classList.add('popup_opened');
+  //добавляем слушатели закрытия попапа
+  item.addEventListener('mousedown', closeOnOverlay);
+  document.addEventListener('keydown', closeOnEsc);
+
 }
 //Фунция открывает popup редактирования профиля
 function openPropfilePopup() {
@@ -96,6 +101,7 @@ function openImagePopup (evt) {
 function closePopup () {
   const popupOpened = document.querySelector('.popup_opened');
   popupOpened.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeOnEsc);
 }
 
 //Функция отправки данных формы
@@ -134,15 +140,17 @@ function closeOnOverlay(evt) {
     closePopup()
   }
 }
+function closeOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup();
+  }
+}
 
 //добавляем слушатель к каждой кнопке закрытия
 btnClose.forEach((btn) => {
   btn.addEventListener('click', closePopup);
 })
 
-popupList.forEach((popup) => {
-  popup.addEventListener('mousedown', closeOnOverlay);
-})
 
 //Обработчик кнопки "создать" добавления карточки
 popupNewForm.addEventListener('submit', createNewCard);
