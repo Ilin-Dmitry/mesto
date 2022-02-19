@@ -17,6 +17,7 @@ const imagePopup = document.querySelector('.popup_sec_img');
 const image = imagePopup.querySelector('.popup__image');
 
 const btnClose = document.querySelectorAll('.popup__close-button');
+const popupList = document.querySelectorAll('.popup');
 const placeInput = document.querySelector('.popup__input_set_place');
 const linkInput = document.querySelector('.popup__input_set_link');
 
@@ -128,11 +129,21 @@ function removeCard (evt) {
   eventTarget.closest('.element').remove();
 }
 
+function closeOnOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup()
+  }
+}
 
 //добавляем слушатель к каждой кнопке закрытия
 btnClose.forEach((btn) => {
   btn.addEventListener('click', closePopup);
 })
+
+popupList.forEach((popup) => {
+  popup.addEventListener('mousedown', closeOnOverlay);
+})
+
 //Обработчик кнопки "создать" добавления карточки
 popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
@@ -146,9 +157,26 @@ profileButton.addEventListener('click', openNewCardPopup);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const formSubmit = (evt) => {
   evt.preventDefault();
-}
+};
 
 const checkInputValidity = (form, input) => {
   const errorMessage = form.querySelector(`.${input.name}-error`);
