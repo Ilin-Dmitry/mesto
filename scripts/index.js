@@ -182,54 +182,117 @@ profileButton.addEventListener('click', openNewCardPopup);
 
 
 
+// const formSubmit = (evt) => {
+//   evt.preventDefault();
+// };
+
+// const checkInputValidity = (form, input) => {
+//   const errorMessage = form.querySelector(`.${input.name}-error`);
+//   if (input.validity.valid) {
+//     errorMessage.textContent = "";
+//     input.classList.remove('popup__input_error');
+//   } else {
+//     errorMessage.textContent = input.validationMessage;
+//     input.classList.add('popup__input_error');
+//   }
+// }
+
+// const checkFormValidity = (form, button) => {
+
+//   if (form.checkValidity()) {
+//     button.removeAttribute('disabled', false);
+//     button.classList.remove('popup__submit-button_disabled')
+//   } else {
+//     button.setAttribute('disabled', true);
+//     button.classList.add('popup__submit-button_disabled');
+//   }
+// }
+
+
+// function validateForm(form) {
+//   form.addEventListener('submit', formSubmit);
+
+//   const inputs = form.querySelectorAll('.popup__input');
+//   const button = form.querySelector('.popup__submit-button');
+//   checkFormValidity(form, button);
+//   inputs.forEach((input) => {
+//     input.addEventListener('input', () => {
+//       checkInputValidity(form, input);
+//       checkFormValidity(form, button);
+//     })
+//   })
+// }
+
+
+// const forms = document.querySelectorAll('.popup__form');
+
+// const enableValidation = () => {
+//   forms.forEach((item) => {
+//     validateForm(item);
+//   });
+// }
+
+// enableValidation();
+
+
+
+
+
 const formSubmit = (evt) => {
   evt.preventDefault();
 };
 
-const checkInputValidity = (form, input) => {
+const checkInputValidity = (config, form, input) => {
   const errorMessage = form.querySelector(`.${input.name}-error`);
   if (input.validity.valid) {
     errorMessage.textContent = "";
-    input.classList.remove('popup__input_error');
+    input.classList.remove(config.inputErrorClass);
   } else {
     errorMessage.textContent = input.validationMessage;
-    input.classList.add('popup__input_error');
+    input.classList.add(config.inputErrorClass);
   }
 }
 
-const checkFormValidity = (form, button) => {
+const checkFormValidity = (config, form, button) => {
 
   if (form.checkValidity()) {
     button.removeAttribute('disabled', false);
-    button.classList.remove('popup__submit-button_disabled')
+    button.classList.remove(config.buttonClassDisabled)
   } else {
     button.setAttribute('disabled', true);
-    button.classList.add('popup__submit-button_disabled');
+    button.classList.add(config.buttonClassDisabled);
   }
 }
 
 
-function validateForm(form) {
+function validateForm(config, form) {
   form.addEventListener('submit', formSubmit);
 
-  const inputs = form.querySelectorAll('.popup__input');
-  const button = form.querySelector('.popup__submit-button');
-  checkFormValidity(form, button);
+  const inputs = form.querySelectorAll(config.inputSelector);
+  const button = form.querySelector(config.buttonSelector);
+  checkFormValidity(config, form, button);
   inputs.forEach((input) => {
     input.addEventListener('input', () => {
-      checkInputValidity(form, input);
-      checkFormValidity(form, button);
+      checkInputValidity(config, form, input);
+      checkFormValidity(config, form, button);
     })
   })
 }
 
 
-const forms = document.querySelectorAll('.popup__form');
 
-const enableValidation = () => {
+
+const enableValidation = (config) => {
+  const forms = document.querySelectorAll(config.formSelector);
   forms.forEach((item) => {
-    validateForm(item);
+    validateForm(config, item);
   });
 }
 
-enableValidation();
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit-button',
+  buttonClassDisabled: '.popup__submit-button_disabled',
+  inputErrorClass: '.popup__input_error'
+});
