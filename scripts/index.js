@@ -12,6 +12,7 @@ const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
 const popupCreateButton = document.querySelector('.popup__submit-button_type_create');
 const popupNew = document.querySelector('.popup_sec_new');
+const popupNewForm = document.querySelector('.popup__form_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
 const image = imagePopup.querySelector('.popup__image');
 
@@ -107,8 +108,7 @@ function handleSubmitForm (evt) {
 //Функция обработки данных формы new-item
 function createNewCard (evt) {
   evt.preventDefault();
-  // const placeInputValue = document.querySelector('.popup__input_set_place').value;
-  // document.querySelector('.popup__input_set_link').value = "";//обнуляем значение ссылки в поле ввода
+
   const newPlace = {};
   newPlace.name = placeInput.value;
   newPlace.link = linkInput.value;
@@ -133,9 +133,8 @@ function removeCard (evt) {
 btnClose.forEach((btn) => {
   btn.addEventListener('click', closePopup);
 })
-
 //Обработчик кнопки "создать" добавления карточки
-popupCreateButton.addEventListener('click', createNewCard);
+popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
 popupOpenButton.addEventListener('click', openPropfilePopup);
 //Обработчик кнопки "сохранить" редактирования профиля
@@ -144,3 +143,57 @@ popupNameForm.addEventListener('submit', handleSubmitForm);
 profileButton.addEventListener('click', openNewCardPopup);
 
 
+
+
+
+const formSubmit = (evt) => {
+  evt.preventDefault();
+}
+
+const checkInputValidity = (form, input) => {
+  const errorMessage = form.querySelector(`.${input.name}-error`);
+  if (input.validity.valid) {
+    errorMessage.textContent = "";
+    input.classList.remove('popup__input_error');
+  } else {
+    errorMessage.textContent = input.validationMessage;
+    input.classList.add('popup__input_error');
+  }
+}
+
+const checkFormValidity = (form, button) => {
+
+  if (form.checkValidity()) {
+    button.removeAttribute('disabled', false);
+    button.classList.remove('popup__submit-button_disabled')
+  } else {
+    button.setAttribute('disabled', true);
+    button.classList.add('popup__submit-button_disabled');
+  }
+}
+
+
+function validateForm(form) {
+  form.addEventListener('submit', formSubmit);
+
+  const inputs = form.querySelectorAll('.popup__input');
+  const button = form.querySelector('.popup__submit-button');
+  checkFormValidity(form, button);
+  inputs.forEach((input) => {
+    input.addEventListener('input', () => {
+      checkInputValidity(form, input);
+      checkFormValidity(form, button);
+    })
+  })
+}
+
+
+const forms = document.querySelectorAll('.popup__form');
+
+const enableValidation = () => {
+  forms.forEach((item) => {
+    validateForm(item);
+  });
+}
+
+enableValidation();
