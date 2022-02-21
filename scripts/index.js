@@ -14,8 +14,9 @@ const popupCreateButton = document.querySelector('.popup__submit-button_type_cre
 const popupNew = document.querySelector('.popup_sec_new');
 const popupNewForm = document.querySelector('.popup__form_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
-const profilePopup = document.querySelector('.popup_sec_profile'); ///////////!!!!!!!!!!!!!!!!!!!!!!
+const profilePopup = document.querySelector('.popup_sec_profile');
 const image = imagePopup.querySelector('.popup__image');
+const imageTitle = imagePopup.querySelector('.popup__image-title');
 
 const btnClose = document.querySelectorAll('.popup__close-button');
 const popupList = document.querySelectorAll('.popup');
@@ -87,13 +88,14 @@ function openPropfilePopup() {
 function openNewCardPopup (evt) {
   openPopup (popupNew);
 }
+
 //Функция открытия картинки
 function openImagePopup (evt) {
   const target = evt.target;
   const title = target.closest('.element').querySelector('.element__name');
   image.src = target.src;
   image.alt = title.textContent;
-  imagePopup.querySelector('.popup__image-title').textContent = title.textContent;
+  imageTitle.textContent = title.textContent;
 
   openPopup (imagePopup);
 }
