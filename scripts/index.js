@@ -1,4 +1,3 @@
-const popup = document.querySelector('.popup'); //Определили блок popup
 
 const popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
@@ -15,6 +14,7 @@ const popupCreateButton = document.querySelector('.popup__submit-button_type_cre
 const popupNew = document.querySelector('.popup_sec_new');
 const popupNewForm = document.querySelector('.popup__form_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
+const profilePopup = document.querySelector('.popup_sec_profile'); ///////////!!!!!!!!!!!!!!!!!!!!!!
 const image = imagePopup.querySelector('.popup__image');
 
 const btnClose = document.querySelectorAll('.popup__close-button');
@@ -79,7 +79,7 @@ function openPopup (item) {
 }
 //Фунция открывает popup редактирования профиля
 function openPropfilePopup() {
-  openPopup (popup);
+  openPopup (profilePopup);
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
   statusInput.value = pasteStatus.textContent; //аналогично со статусом
 }
