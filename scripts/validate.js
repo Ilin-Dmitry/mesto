@@ -14,7 +14,6 @@ const checkInputValidity = (config, form, input) => {
 }
 
 const checkFormValidity = (config, form, button) => {
-
   if (form.checkValidity()) {
     button.removeAttribute('disabled', false);
     button.classList.remove(config.buttonClassDisabled)
