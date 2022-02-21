@@ -100,6 +100,7 @@ function openImagePopup (evt) {
 //закрытие popup
 function closePopup () {
   const popupOpened = document.querySelector('.popup_opened');
+  popupOpened.removeEventListener('mousedown', closeOnOverlay);
   popupOpened.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeOnEsc);
 }
