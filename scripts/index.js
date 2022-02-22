@@ -120,8 +120,12 @@ function handleSubmitForm (evt) {
 }
 
 
-function disableSubmitBtn () {
+function setBtnClassDisabled () {
   popupCreateButton.classList.add('popup__submit-button_disabled');
+}
+
+function setBtnAttrDisabled () {
+  popupCreateButton.setAttribute('disabled', true);
 }
 
 //Функция обработки данных формы new-item
@@ -135,7 +139,8 @@ function createNewCard (evt) {
   closePopup();
   placeInput.value = "";//обнуляем значение места в поле ввода
   linkInput.value = "";
-  disableSubmitBtn();
+  setBtnClassDisabled();
+  setBtnAttrDisabled();
 }
 //Функция переключения лайка
 function toggleLikeButton (evt) {
@@ -149,7 +154,6 @@ function removeCard (evt) {
 
 function closeOnOverlay(evt) {
   if (evt.target === evt.currentTarget) {
-    console.log(evt.target);
     closePopup()
   }
 }
