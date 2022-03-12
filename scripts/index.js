@@ -11,6 +11,7 @@ const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
 const templateElement = document.querySelector('.element__template').content;
 const popupCreateButton = document.querySelector('.popup__submit-button_type_create');
+const popupProfileForm = document.querySelector('.popup__form_sec_profile');
 const popupNew = document.querySelector('.popup_sec_new');
 const popupNewForm = document.querySelector('.popup__form_sec_new');
 const imagePopup = document.querySelector('.popup_sec_img');
@@ -177,3 +178,67 @@ popupOpenButton.addEventListener('click', openPropfilePopup);
 popupNameForm.addEventListener('submit', handleSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
 profileButton.addEventListener('click', openNewCardPopup);
+
+
+///////////////////////
+//// FormValidator ////
+///////////////////////
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit-button',
+  buttonClassDisabled: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_error'
+}
+
+class FormValidator {
+  constructor(config, form) {
+    this._form = form;
+    this._config = config;
+  }
+
+  _formSubmit(evt) {
+    evt.preventDefault();
+  };
+
+  _checkInputValidity (input) {
+    const errorMessage = this._form.querySelector(`.${input.name}-error`);
+    if (input.validity.valid) {
+      errorMessage.textContent = "";
+      input.classList.remove(this._config.inputErrorClass);
+    } else {
+      errorMessage.textContent = input.validationMessage;
+      input.classList.add(this._config.inputErrorClass);
+    }
+  }
+
+  _checkFormValidity (button) {
+    if (this._form.checkValidity()) {
+      button.removeAttribute('disabled', false);
+      button.classList.remove(this._config.buttonClassDisabled)
+    } else {
+      button.setAttribute('disabled', true);
+      button.classList.add(this._config.buttonClassDisabled);
+    }
+  }
+
+  enableValidation (config) {
+    this._form.addEventListener('submit', this._formSubmit);
+
+    const inputs = this._form.querySelectorAll(this._config.inputSelector);
+    const button = this._form.querySelector(this._config.buttonSelector);
+    this._checkFormValidity(button);
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        this._checkInputValidity(input);
+        this._checkFormValidity(button);
+      })
+    })
+  }
+}
+
+const valid = new FormValidator(validationConfig, popupNewForm);
+const valid2 = new FormValidator(validationConfig, popupProfileForm);
+valid.enableValidation();
+valid2.enableValidation();

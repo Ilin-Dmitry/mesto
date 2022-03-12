@@ -1,3 +1,11 @@
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit-button',
+  buttonClassDisabled: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_error'
+}
+
 const formSubmit = (evt) => {
   evt.preventDefault();
 };
@@ -46,10 +54,4 @@ const enableValidation = (config) => {
   });
 }
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit-button',
-  buttonClassDisabled: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_error'
-});
+enableValidation(validationConfig);
