@@ -71,6 +71,7 @@ function renderCard (el) {
   elements.prepend(createCard(el));
 }
 initialCards.forEach(renderCard);
+
 //функция открытия попапа
 function openPopup (item) {
   item.classList.add('popup_opened');
@@ -79,6 +80,7 @@ function openPopup (item) {
   document.addEventListener('keydown', closeOnEsc);
 
 }
+
 //Фунция открывает popup редактирования профиля
 function openPropfilePopup() {
   openPopup (profilePopup);
@@ -213,26 +215,26 @@ class FormValidator {
     }
   }
 
-  _checkFormValidity (button) {
+  _checkFormValidity () {
     if (this._form.checkValidity()) {
-      button.removeAttribute('disabled', false);
-      button.classList.remove(this._config.buttonClassDisabled)
+      this._button.removeAttribute('disabled', false);
+      this._button.classList.remove(this._config.buttonClassDisabled)
     } else {
-      button.setAttribute('disabled', true);
-      button.classList.add(this._config.buttonClassDisabled);
+      this._button.setAttribute('disabled', true);
+      this._button.classList.add(this._config.buttonClassDisabled);
     }
   }
 
-  enableValidation (config) {
+  enableValidation () {
     this._form.addEventListener('submit', this._formSubmit);
 
     const inputs = this._form.querySelectorAll(this._config.inputSelector);
-    const button = this._form.querySelector(this._config.buttonSelector);
-    this._checkFormValidity(button);
+    this._button = this._form.querySelector(this._config.buttonSelector);
+    this._checkFormValidity();
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._checkFormValidity(button);
+        this._checkFormValidity();
       })
     })
   }
@@ -242,3 +244,64 @@ const valid = new FormValidator(validationConfig, popupNewForm);
 const valid2 = new FormValidator(validationConfig, popupProfileForm);
 valid.enableValidation();
 valid2.enableValidation();
+
+
+///////////////////////
+////////FORM///////////
+///////////////////////
+
+class Card {
+  constructor (data, templateElementSelector) {
+    this._name = data.name;
+    this._link = data.link;
+    this._templateElement = document.querySelector(`${templateElementSelector}`).content;
+    console.log(templateElement);
+  }
+
+
+  _openImagePopup = () => {
+      // const target = evt.target;
+      const title = this._cardImage.closest('.element').querySelector('.element__name');
+      // console.log(title);
+      image.src = this._link;
+      image.alt = this._name;
+      imageTitle.textContent = this._name;
+
+      openPopup (imagePopup);
+    }
+
+  _toggleLikeButton = () => {
+    this._buttonLike.classList.toggle('element__like_active');
+  }
+
+  _removeCard = () => {
+    console.log(this._buttonRemove.closest('.element'));
+    this._buttonRemove.closest('.element').remove();
+  }
+
+  createCard() {
+    this._cardsTemplate = this._templateElement.cloneNode(true);
+    this._buttonLike = this._cardsTemplate.querySelector('.element__like');
+    this._buttonRemove = this._cardsTemplate.querySelector('.element__remove');
+    this._cardImage = this._cardsTemplate.querySelector('.element__picture');
+
+    this._cardsTemplate.querySelector('.element__name').textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+
+    this._buttonLike.addEventListener('click', this._toggleLikeButton);
+    this._buttonRemove.addEventListener('click', this._removeCard);
+    this._cardImage.addEventListener('click', this._openImagePopup);
+
+    return this._cardsTemplate;
+  }
+}
+
+const dataX ={name: 'Архыз',
+link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'};
+const cardNew = new Card(dataX, '.element__template')
+elements.prepend(cardNew.createCard())
+
+///////////////////////
+//////END_FORM/////////
+///////////////////////
