@@ -30,6 +30,7 @@ export class FormValidator {
   }
 
   enableValidation () {
+
     this._form.addEventListener('submit', this._formSubmit);
 
     const inputs = this._form.querySelectorAll(this._config.inputSelector);
@@ -39,7 +40,10 @@ export class FormValidator {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
         this._checkFormValidity();
+
       })
     })
   }
+
+
 }

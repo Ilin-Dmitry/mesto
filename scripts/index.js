@@ -83,7 +83,6 @@ export function openPopup (item) {
 
 //Фунция открывает popup редактирования профиля
 function openPropfilePopup() {
-  popupProfileFormValidator.enableValidation();
 
   openPopup (profilePopup);
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
@@ -112,6 +111,7 @@ function handleSubmitForm (evt) {
   pasteName.textContent = nameInput.value;
   pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
   closePopup();//Закрываем popup
+
 }
 
 
