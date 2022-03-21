@@ -19,7 +19,7 @@ export class FormValidator {
     }
   }
 
-  _checkFormValidity () {
+  _toggleButtonState () {
     if (this._form.checkValidity()) {
       this._button.removeAttribute('disabled', false);
       this._button.classList.remove(this._config.buttonClassDisabled)
@@ -35,15 +35,16 @@ export class FormValidator {
 
     const inputs = this._form.querySelectorAll(this._config.inputSelector);
     this._button = this._form.querySelector(this._config.buttonSelector);
-    this._checkFormValidity();
+    this._toggleButtonState();
     inputs.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
-        this._checkFormValidity();
+        this._toggleButtonState();
 
       })
     })
   }
+
 
 
 }

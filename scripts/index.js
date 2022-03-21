@@ -1,6 +1,6 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
-const popupOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
+const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
@@ -20,7 +20,7 @@ const profilePopup = document.querySelector('.popup_sec_profile');
 export const image = imagePopup.querySelector('.popup__image');
 export const imageTitle = imagePopup.querySelector('.popup__image-title');
 
-const btnClose = document.querySelectorAll('.popup__close-button');
+const closeButtons = document.querySelectorAll('.popup__close-button');
 const popupList = document.querySelectorAll('.popup');
 const placeInput = document.querySelector('.popup__input_set_place');
 const linkInput = document.querySelector('.popup__input_set_link');
@@ -106,7 +106,7 @@ function closePopup () {
 }
 
 //Функция отправки данных формы
-function handleSubmitForm (evt) {
+function handleProfileSubmitForm (evt) {
   evt.preventDefault();//отменяем перезагрузку страницы
   pasteName.textContent = nameInput.value;
   pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
@@ -115,13 +115,7 @@ function handleSubmitForm (evt) {
 }
 
 
-function setBtnClassDisabled () {
-  popupCreateButton.classList.add('popup__submit-button_disabled');
-}
 
-function setBtnAttrDisabled () {
-  popupCreateButton.setAttribute('disabled', true);
-}
 
 //Функция обработки данных формы new-item
 function createNewCard (evt) {
@@ -134,8 +128,7 @@ function createNewCard (evt) {
   closePopup();
   placeInput.value = "";//обнуляем значение места в поле ввода
   linkInput.value = "";
-  setBtnClassDisabled();
-  setBtnAttrDisabled();
+
 }
 
 function closeOnOverlay(evt) {
@@ -150,16 +143,16 @@ function closeOnEsc(evt) {
 }
 
 //добавляем слушатель к каждой кнопке закрытия
-btnClose.forEach((btn) => {
+closeButtons.forEach((btn) => {
   btn.addEventListener('click', closePopup);
 })
 
 //Обработчик кнопки "создать" добавления карточки
 popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
-popupOpenButton.addEventListener('click', openPropfilePopup);
+profileOpenButton.addEventListener('click', openPropfilePopup);
 //Обработчик кнопки "сохранить" редактирования профиля
-popupNameForm.addEventListener('submit', handleSubmitForm);
+popupNameForm.addEventListener('submit', handleProfileSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
 profileButton.addEventListener('click', openNewCardPopup);
 

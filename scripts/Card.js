@@ -8,9 +8,6 @@ export class Card {
 
 
   _openImagePopup = () => {
-      // const target = evt.target;
-      const title = this._cardImage.closest('.element').querySelector('.element__name');
-      // console.log(title);
       image.src = this._link;
       image.alt = this._name;
       imageTitle.textContent = this._name;
@@ -27,6 +24,11 @@ export class Card {
     this._buttonRemove.closest('.element').remove();
   }
 
+  _setEventListeners = () => {
+    this._buttonLike.addEventListener('click', this._toggleLikeButton);
+    this._buttonRemove.addEventListener('click', this._removeCard);
+    this._cardImage.addEventListener('click', this._openImagePopup);
+  }
   createCard() {
     this._cardsTemplate = this._templateElement.cloneNode(true);
     this._buttonLike = this._cardsTemplate.querySelector('.element__like');
@@ -37,9 +39,9 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 
-    this._buttonLike.addEventListener('click', this._toggleLikeButton);
-    this._buttonRemove.addEventListener('click', this._removeCard);
-    this._cardImage.addEventListener('click', this._openImagePopup);
+    this._setEventListeners();
+
+
 
     return this._cardsTemplate;
   }
