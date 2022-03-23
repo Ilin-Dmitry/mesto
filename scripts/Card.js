@@ -1,19 +1,22 @@
 import {image, imageTitle, openPopup, imagePopup} from './index.js'
 export class Card {
-  constructor (data, templateElementSelector) {
+  constructor (data, templateElementSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
+    //////////
+    this._handleCardClick = handleCardClick;
+    //////////
   }
 
 
-  _openImagePopup = () => {
-      image.src = this._link;
-      image.alt = this._name;
-      imageTitle.textContent = this._name;
+  // _openImagePopup = () => {
+  //     image.src = this._link;
+  //     image.alt = this._name;
+  //     imageTitle.textContent = this._name;
 
-      openPopup (imagePopup);
-    }
+  //     openPopup (imagePopup);
+  //   }
 
   _toggleLikeButton = () => {
     this._buttonLike.classList.toggle('element__like_active');
@@ -27,7 +30,9 @@ export class Card {
   _setEventListeners = () => {
     this._buttonLike.addEventListener('click', this._toggleLikeButton);
     this._buttonRemove.addEventListener('click', this._removeCard);
-    this._cardImage.addEventListener('click', this._openImagePopup);
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link)
+    });
   }
   createCard() {
     this._cardsTemplate = this._templateElement.cloneNode(true);

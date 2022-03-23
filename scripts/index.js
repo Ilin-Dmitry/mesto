@@ -76,7 +76,7 @@ enableValidation(validationConfig);
 
 
 function createCard (data) {
-  const card = new Card(data, '.element__template');
+  const card = new Card(data, '.element__template', handleCardClick);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -174,6 +174,21 @@ profileButton.addEventListener('click', openNewCardPopup);
 
 
 
+///////////
+////TEST///
+///////////
+function handleCardClick(name, link) {
+  image.src = link;
+  image.alt = name;
+  imageTitle.textContent = name;
+  openPopup (imagePopup);
+}
 
+
+
+
+///////////
+//END_TEST/
+///////////
 
 
