@@ -9,12 +9,12 @@ export class FormValidator {
   };
 
   _checkInputValidity (input) {
-    const errorMessage = this._form.querySelector(`.${input.name}-error`);
+    this._errorMessage = this._form.querySelector(`.${input.name}-error`);
     if (input.validity.valid) {
-      errorMessage.textContent = "";
+      this._errorMessage.textContent = "";
       input.classList.remove(this._config.inputErrorClass);
     } else {
-      errorMessage.textContent = input.validationMessage;
+      this._errorMessage.textContent = input.validationMessage;
       input.classList.add(this._config.inputErrorClass);
     }
   }
@@ -30,7 +30,6 @@ export class FormValidator {
   }
 
   enableValidation () {
-
     this._form.addEventListener('submit', this._formSubmit);
 
     const inputs = this._form.querySelectorAll(this._config.inputSelector);
@@ -46,5 +45,16 @@ export class FormValidator {
   }
 
 
+  resetValidation () {
+    this._toggleButtonState();
+    this._form.reset();
+
+    const inputs = this._form.querySelectorAll(this._config.inputSelector);
+    inputs.forEach((inputElement) => {
+      this._checkInputValidity(inputElement);
+      this._errorMessage.textContent = "";
+      inputElement.classList.remove(this._config.inputErrorClass);
+    })
+  }
 
 }

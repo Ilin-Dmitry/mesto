@@ -60,22 +60,35 @@ const validationConfig = {
   inputErrorClass: 'popup__input_error'
 }
 
-const popupNewFormValidator = new FormValidator(validationConfig, popupNewForm);
-const popupProfileFormValidator = new FormValidator(validationConfig, popupProfileForm);
-popupNewFormValidator.enableValidation();
-popupProfileFormValidator.enableValidation();
+const formValidators = {}
+//Функция включения валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
 
+enableValidation(validationConfig);
+
+
+function createCard (data) {
+  const card = new Card(data, '.element__template');
+  const cardElement = card.createCard();
+  return cardElement;
+}
 
 function renderCard (data) {
-  const cardItem = new Card(data, '.element__template')
-  elements.prepend(cardItem.createCard())
+  elements.prepend(createCard(data));
 }
 initialCards.forEach(renderCard);
 
 //функция открытия попапа
 export function openPopup (item) {
   item.classList.add('popup_opened');
-  //добавляем слушатели закрытия попапа
   item.addEventListener('mousedown', closeOnOverlay);
   document.addEventListener('keydown', closeOnEsc);
 
@@ -83,6 +96,7 @@ export function openPopup (item) {
 
 //Фунция открывает popup редактирования профиля
 function openPropfilePopup() {
+  formValidators.formNameStatus.resetValidation();
 
   openPopup (profilePopup);
   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
@@ -90,6 +104,7 @@ function openPropfilePopup() {
 }
 //Функция открывает popup создания новой карточки
 function openNewCardPopup (evt) {
+  formValidators.formNewItem.resetValidation();
   openPopup (popupNew);
 }
 
@@ -128,6 +143,7 @@ function createNewCard (evt) {
   closePopup();
   placeInput.value = "";//обнуляем значение места в поле ввода
   linkInput.value = "";
+
 
 }
 
