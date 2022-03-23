@@ -44,7 +44,6 @@ export class FormValidator {
     })
   }
 
-
   resetValidation () {
     this._toggleButtonState();
     this._form.reset();

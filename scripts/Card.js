@@ -1,29 +1,17 @@
-import {image, imageTitle, openPopup, imagePopup} from './index.js'
 export class Card {
   constructor (data, templateElementSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
-    //////////
+
     this._handleCardClick = handleCardClick;
-    //////////
   }
-
-
-  // _openImagePopup = () => {
-  //     image.src = this._link;
-  //     image.alt = this._name;
-  //     imageTitle.textContent = this._name;
-
-  //     openPopup (imagePopup);
-  //   }
 
   _toggleLikeButton = () => {
     this._buttonLike.classList.toggle('element__like_active');
   }
 
   _removeCard = () => {
-    console.log(this._buttonRemove.closest('.element'));
     this._buttonRemove.closest('.element').remove();
   }
 
