@@ -2,20 +2,30 @@ export class FormValidator {
   constructor(config, form) {
     this._form = form;
     this._config = config;
+    this._inputList = this._form.querySelectorAll(this._config.inputSelector);
   }
 
   _formSubmit(evt) {
     evt.preventDefault();
   };
 
+
+  _hideError = (input) => {
+    this._errorMessage.textContent = "";
+    input.classList.remove(this._config.inputErrorClass);
+  }
+
+  _showError (input) {
+    this._errorMessage.textContent = input.validationMessage;
+    input.classList.add(this._config.inputErrorClass);
+  }
+
   _checkInputValidity (input) {
     this._errorMessage = this._form.querySelector(`.${input.name}-error`);
     if (input.validity.valid) {
-      this._errorMessage.textContent = "";
-      input.classList.remove(this._config.inputErrorClass);
+      this._hideError(input);
     } else {
-      this._errorMessage.textContent = input.validationMessage;
-      input.classList.add(this._config.inputErrorClass);
+      this._showError(input);
     }
   }
 
@@ -32,10 +42,10 @@ export class FormValidator {
   enableValidation () {
     this._form.addEventListener('submit', this._formSubmit);
 
-    const inputs = this._form.querySelectorAll(this._config.inputSelector);
+
     this._button = this._form.querySelector(this._config.buttonSelector);
     this._toggleButtonState();
-    inputs.forEach((input) => {
+    this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
         this._toggleButtonState();
@@ -45,14 +55,12 @@ export class FormValidator {
   }
 
   resetValidation () {
-    this._toggleButtonState();
-    this._form.reset();
 
-    const inputs = this._form.querySelectorAll(this._config.inputSelector);
-    inputs.forEach((inputElement) => {
-      this._checkInputValidity(inputElement);
-      this._errorMessage.textContent = "";
-      inputElement.classList.remove(this._config.inputErrorClass);
+    this._form.reset();
+    this._toggleButtonState();
+    this._inputList.forEach((input) => {
+      this._errorMessage = this._form.querySelector(`.${input.name}-error`);
+      this._hideError(input);
     })
   }
 

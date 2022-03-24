@@ -1,7 +1,6 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
 const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
-//const popupCloseButton = document.querySelector('.popup__close-button');//определили крестик
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
 const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
@@ -10,9 +9,6 @@ const pasteStatus = document.querySelector('.profile__info-status');// сюда 
 
 const profileButton = document.querySelector('.profile__button');
 const elements = document.querySelector('.elements');
-//const templateElement = document.querySelector('.element__template').content;
-//const popupCreateButton = document.querySelector('.popup__submit-button_type_create');
-//const popupProfileForm = document.querySelector('.popup__form_sec_profile');
 const popupNew = document.querySelector('.popup_sec_new');
 const popupNewForm = document.querySelector('.popup__form_sec_new');
 export const imagePopup = document.querySelector('.popup_sec_img');
@@ -21,7 +17,6 @@ export const image = imagePopup.querySelector('.popup__image');
 export const imageTitle = imagePopup.querySelector('.popup__image-title');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
-//const popupList = document.querySelectorAll('.popup');
 const placeInput = document.querySelector('.popup__input_set_place');
 const linkInput = document.querySelector('.popup__input_set_link');
 
@@ -88,6 +83,7 @@ function createCard (data) {
 }
 
 function renderCard (data) {
+
   elements.prepend(createCard(data));
 }
 initialCards.forEach(renderCard);
