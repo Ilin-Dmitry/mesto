@@ -173,3 +173,29 @@ profileOpenButton.addEventListener('click', openPropfilePopup);
 popupNameForm.addEventListener('submit', handleProfileSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
 profileButton.addEventListener('click', openNewCardPopup);
+
+
+
+////////////////
+///NEW_CLASSES//
+////////////////
+class Section {
+  constructor({items, renderer}, containerSelector) {
+    this._items = items;
+    this._renderer = renderer;
+    this._container = document.querySelector(containerSelector);
+  }
+
+  renderAllElements () {
+    this._items.forEach((item) => {
+      this._renderer(item);
+    })
+  }
+
+  addItem (element) {
+    this._container.append(element);
+  }
+}
+
+////////////////
+////////////////
