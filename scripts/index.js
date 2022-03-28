@@ -1,5 +1,6 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
+import { PopupWithImage } from "./PopupWithImage.js";
 const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
@@ -69,15 +70,21 @@ const enableValidation = (config) => {
 
 enableValidation(validationConfig);
 
+const popupImage = new PopupWithImage('.popup_sec_img');
+popupImage.setEventListeners();
+
+
 function handleCardClick(name, link) {
-  image.src = link;
-  image.alt = name;
-  imageTitle.textContent = name;
-  openPopup (imagePopup);
+  // image.src = link;
+  // image.alt = name;
+  // imageTitle.textContent = name;
+  // openPopup (imagePopup);
+  console.log('name: ',name,'link: ', link);
+  popupImage.open(name, link);
 }
 
 function createCard (data) {
-  const card = new Card(data, '.element__template', handleCardClick);
+  const card = new Card(data, '.element__template', popupImage.open);
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -86,7 +93,7 @@ function renderCard (data) {
 
   elements.prepend(createCard(data));
 }
-initialCards.forEach(renderCard);
+// initialCards.forEach(renderCard);
 
 //функция открытия попапа
 export function openPopup (item) {
@@ -115,12 +122,12 @@ function removeClassOpened(popup) {
   popup.classList.remove('popup_opened');
 }
 
-function closePopup () {
-  const popupOpened = document.querySelector('.popup_opened');
-  popupOpened.removeEventListener('mousedown', closeOnOverlay);
-  removeClassOpened(popupOpened)
-  document.removeEventListener('keydown', closeOnEsc);
-}
+// function closePopup () {
+//   const popupOpened = document.querySelector('.popup_opened');
+//   popupOpened.removeEventListener('mousedown', closeOnOverlay);
+//   removeClassOpened(popupOpened)
+//   document.removeEventListener('keydown', closeOnEsc);
+// }
 
 //Функция отправки данных формы
 function handleProfileSubmitForm (evt) {
@@ -135,38 +142,41 @@ function handleProfileSubmitForm (evt) {
 
 
 //Функция обработки данных формы new-item
-function createNewCard (evt) {
-  evt.preventDefault();
+// function createNewCard (evt) {
+//   evt.preventDefault();
 
-  const newPlace = {};
-  newPlace.name = placeInput.value;
-  newPlace.link = linkInput.value;
-  renderCard(newPlace);
-  closePopup();
-  placeInput.value = "";//обнуляем значение места в поле ввода
-  linkInput.value = "";
+//   const newPlace = {};
+//   newPlace.name = placeInput.value;
+//   newPlace.link = linkInput.value;
+
+//   section.addItem(createCard(newPlace));
+//   closePopup();
+//   placeInput.value = "";//обнуляем значение места в поле ввода
+//   linkInput.value = "";
 
 
-}
+// }
 
 function closeOnOverlay(evt) {
   if (evt.target === evt.currentTarget) {
     closePopup()
   }
 }
-function closeOnEsc(evt) {
-  if (evt.key === 'Escape') {
-    closePopup();
-  }
-}
+// function closeOnEsc(evt) {
+//   console.log(evt);
+//   console.log(evt.key);
+//   if (evt.key === 'Escape') {
+//     closePopup();
+//   }
+// }
 
 //добавляем слушатель к каждой кнопке закрытия
-closeButtons.forEach((btn) => {
-  btn.addEventListener('click', closePopup);
-})
+// closeButtons.forEach((btn) => {
+//   btn.addEventListener('click', closePopup);
+// })
 
 //Обработчик кнопки "создать" добавления карточки
-popupNewForm.addEventListener('submit', createNewCard);
+// popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
 profileOpenButton.addEventListener('click', openPropfilePopup);
 //Обработчик кнопки "сохранить" редактирования профиля
@@ -176,9 +186,14 @@ profileButton.addEventListener('click', openNewCardPopup);
 
 
 
-////////////////
-///NEW_CLASSES//
-////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////NEW_CLASSES///////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+function renderer (item, place) {
+  place.append(item);
+}
+
 class Section {
   constructor({items, renderer}, containerSelector) {
     this._items = items;
@@ -193,9 +208,107 @@ class Section {
   }
 
   addItem (element) {
-    this._container.append(element);
+    this._container.prepend(element);
   }
 }
 
+
+const section = new Section({items: initialCards, renderer: renderCard}, '.elements');
+section.renderAllElements();
+/////////////////
+////REPEAT///////
+/*
+export function openPopup (item) {
+  item.classList.add('popup_opened');
+  item.addEventListener('mousedown', closeOnOverlay);
+  document.addEventListener('keydown', closeOnEsc);
+
+}
+
+
+function closePopup () {
+  const popupOpened = document.querySelector('.popup_opened');
+  popupOpened.removeEventListener('mousedown', closeOnOverlay);
+  removeClassOpened(popupOpened)
+  document.removeEventListener('keydown', closeOnEsc);
+}
+
+function closeOnOverlay(evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup()
+  }
+}
+function closeOnEsc(evt) {
+  if (evt.key === 'Escape') {
+    closePopup();
+  }
+}
+
+
+*/
+/////////////////
+
+
+
+
+
+
+
+
+
+/*
+
+class PopupWithForm extends Popup {
+  constructor (popupSelector, submitForm) {
+    super (popupSelector);
+    this._submitForm = submitForm;
+    this._form = this._popup.querySelector('.popup__form');
+    this._inputsList = Array.from(this._form.querySelectorAll('.popup__input'));
+  }
+
+  _getInputValues () {
+    this._inputsValues = {}
+    this._inputsList.forEach((input) => {
+      const value = input.value;
+      this._inputsValues[input] = value;
+    })
+    return this._inputsValues;
+  }
+
+  setEventListeners = () => {
+    this._closeBtn.addEventListener('click', this.close);
+    this._popup.addEventListener('mousedown', this._handleOverlayClose);
+    document.addEventListener('keydown', this._handleEscClose);
+    this._form.addEventListener('submit', this._submitForm);
+
+    //добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
+  };
+
+  close = () => {
+    this._popup.classList.remove('popup_opened');
+    this._form.reset();
+  }
+}
+
+class UserInfo {
+  constructor ({userName, userInfo}) {
+    this._userName = userName;
+    this._userInfo = userInfo;
+  }
+
+  getUserInfo () {
+    this._userData = {};
+    this._userData.name = this._userName;
+    this._userData.info = this._userInfo;
+
+    return userData;
+  }
+
+  setUserInfo ({newUserName, newUserInfo}) {
+    this._userName = newUserName;
+    this._userInfo = newUserInfo;
+  }
+}
+*/
 ////////////////
 ////////////////
