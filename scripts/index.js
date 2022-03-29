@@ -3,6 +3,7 @@ import { Card } from "./Card.js";
 import { Section } from "./Section.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
+import { UserInfo } from "./UserInfo.js";
 const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
@@ -74,15 +75,15 @@ const enableValidation = (config) => {
 //   console.log('hi-hi');
 // }
 function handleProfileSubmitForm (data) {
-
-  pasteName.textContent = data.name;
-  pasteStatus.textContent = data.status; //переносим значение статуса на страницу
+  userInfo.setUserInfo({newUserName: data.name, newUserInfo: data.status});
+  // pasteName.textContent = data.name;
+  // pasteStatus.textContent = data.status; //переносим значение статуса на страницу
 
   popupProfile.close();//Закрываем popup
-
+  const userData = userInfo.getUserInfo();
   // переопределяем значения по умолчанию
-  nameInput.setAttribute('value', data.name)
-  statusInput.setAttribute('value', data.status);
+  nameInput.setAttribute('value', userData.name)
+  statusInput.setAttribute('value', userData.info);
 }
 
 function handleNewCardSubmitForm (data) {
@@ -212,11 +213,22 @@ function closeOnOverlay(evt) {
 //Обработчик кнопки "создать" добавления карточки
 // popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
-profileOpenButton.addEventListener('click', popupProfile.open);
+
+function openProfilePopup () {
+  formValidators.formNameStatus.resetValidation();
+  popupProfile.open();
+}
+
+function openNewCardPopup () {
+  formValidators.formNewItem.resetValidation();
+  popupNewCard.open();
+}
+
+profileOpenButton.addEventListener('click', openProfilePopup);
 //Обработчик кнопки "сохранить" редактирования профиля
 // popupNameForm.addEventListener('submit', handleProfileSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
-profileButton.addEventListener('click', popupNewCard.open);
+profileButton.addEventListener('click', openNewCardPopup);
 
 
 
@@ -273,29 +285,12 @@ function closeOnEsc(evt) {
 
 
 
-/*
 
 
 
-class UserInfo {
-  constructor ({userName, userInfo}) {
-    this._userName = userName;
-    this._userInfo = userInfo;
-  }
 
-  getUserInfo () {
-    this._userData = {};
-    this._userData.name = this._userName;
-    this._userData.info = this._userInfo;
 
-    return userData;
-  }
 
-  setUserInfo ({newUserName, newUserInfo}) {
-    this._userName = newUserName;
-    this._userInfo = newUserInfo;
-  }
-}
-*/
+const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
 ////////////////
 ////////////////
