@@ -1,6 +1,8 @@
 import { FormValidator } from "./FormValidator.js";
 import { Card } from "./Card.js";
+import { Section } from "./Section.js";
 import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithForm } from "./PopupWithForm.js";
 const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
@@ -68,10 +70,33 @@ const enableValidation = (config) => {
   });
 };
 
+// function sayHi () {
+//   console.log('hi-hi');
+// }
+function handleProfileSubmitForm () {
+  pasteName.textContent = nameInput.value;
+  pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
+  popupProfile.close();//Закрываем popup
+}
+
+function handleNewCardSubmitForm () {
+  console.log('hi from handleNewCardSubmitForm');
+  const newPlace = {};
+  newPlace.name = placeInput.value;
+  newPlace.link = linkInput.value;
+
+  section.addItem(createCard(newPlace));
+  popupNewCard.close();
+};
+
 enableValidation(validationConfig);
 
 const popupImage = new PopupWithImage('.popup_sec_img');
+const popupProfile = new PopupWithForm('.popup_sec_profile', handleProfileSubmitForm);
+const popupNewCard = new PopupWithForm('.popup_sec_new', handleNewCardSubmitForm);
 popupImage.setEventListeners();
+popupProfile.setEventListeners();
+popupNewCard.setEventListeners();
 
 
 function handleCardClick(name, link) {
@@ -96,26 +121,26 @@ function renderCard (data) {
 // initialCards.forEach(renderCard);
 
 //функция открытия попапа
-export function openPopup (item) {
-  item.classList.add('popup_opened');
-  item.addEventListener('mousedown', closeOnOverlay);
-  document.addEventListener('keydown', closeOnEsc);
+// export function openPopup (item) {
+  // item.classList.add('popup_opened');
+  // item.addEventListener('mousedown', closeOnOverlay);
+  // document.addEventListener('keydown', closeOnEsc);
 
-}
+// }
 
-//Фунция открывает popup редактирования профиля
-function openPropfilePopup() {
-  formValidators.formNameStatus.resetValidation();
+// //Фунция открывает popup редактирования профиля
+// function openPropfilePopup() {
+//   formValidators.formNameStatus.resetValidation();
 
-  openPopup (profilePopup);
-  nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
-  statusInput.value = pasteStatus.textContent; //аналогично со статусом
-}
-//Функция открывает popup создания новой карточки
-function openNewCardPopup () {
-  formValidators.formNewItem.resetValidation();
-  openPopup (popupNew);
-}
+//   openPopup (profilePopup);
+//   nameInput.value = pasteName.textContent; // вставляем значение имени на страницу в поле ввода имени
+//   statusInput.value = pasteStatus.textContent; //аналогично со статусом
+// }
+// //Функция открывает popup создания новой карточки
+// function openNewCardPopup () {
+//   formValidators.formNewItem.resetValidation();
+//   openPopup (popupNew);
+// }
 
 
 function removeClassOpened(popup) {
@@ -130,13 +155,14 @@ function removeClassOpened(popup) {
 // }
 
 //Функция отправки данных формы
-function handleProfileSubmitForm (evt) {
-  evt.preventDefault();//отменяем перезагрузку страницы
-  pasteName.textContent = nameInput.value;
-  pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
-  closePopup();//Закрываем popup
+// function handleProfileSubmitForm (evt) {
+//   evt.preventDefault();//отменяем перезагрузку страницы
+//   pasteName.textContent = nameInput.value;
+//   pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
+//   closePopup();//Закрываем popup
 
-}
+// }
+
 
 
 
@@ -178,11 +204,11 @@ function closeOnOverlay(evt) {
 //Обработчик кнопки "создать" добавления карточки
 // popupNewForm.addEventListener('submit', createNewCard);
 //вызываем попап редактирования профиля при клике
-profileOpenButton.addEventListener('click', openPropfilePopup);
+profileOpenButton.addEventListener('click', popupProfile.open);
 //Обработчик кнопки "сохранить" редактирования профиля
-popupNameForm.addEventListener('submit', handleProfileSubmitForm);
+// popupNameForm.addEventListener('submit', handleProfileSubmitForm);
 //Обработчик кнопки открытия попапа добавления карточки
-profileButton.addEventListener('click', openNewCardPopup);
+profileButton.addEventListener('click', popupNewCard.open);
 
 
 
@@ -194,23 +220,6 @@ function renderer (item, place) {
   place.append(item);
 }
 
-class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._items = items;
-    this._renderer = renderer;
-    this._container = document.querySelector(containerSelector);
-  }
-
-  renderAllElements () {
-    this._items.forEach((item) => {
-      this._renderer(item);
-    })
-  }
-
-  addItem (element) {
-    this._container.prepend(element);
-  }
-}
 
 
 const section = new Section({items: initialCards, renderer: renderCard}, '.elements');
@@ -258,37 +267,7 @@ function closeOnEsc(evt) {
 
 /*
 
-class PopupWithForm extends Popup {
-  constructor (popupSelector, submitForm) {
-    super (popupSelector);
-    this._submitForm = submitForm;
-    this._form = this._popup.querySelector('.popup__form');
-    this._inputsList = Array.from(this._form.querySelectorAll('.popup__input'));
-  }
 
-  _getInputValues () {
-    this._inputsValues = {}
-    this._inputsList.forEach((input) => {
-      const value = input.value;
-      this._inputsValues[input] = value;
-    })
-    return this._inputsValues;
-  }
-
-  setEventListeners = () => {
-    this._closeBtn.addEventListener('click', this.close);
-    this._popup.addEventListener('mousedown', this._handleOverlayClose);
-    document.addEventListener('keydown', this._handleEscClose);
-    this._form.addEventListener('submit', this._submitForm);
-
-    //добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
-  };
-
-  close = () => {
-    this._popup.classList.remove('popup_opened');
-    this._form.reset();
-  }
-}
 
 class UserInfo {
   constructor ({userName, userInfo}) {
