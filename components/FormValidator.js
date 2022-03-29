@@ -9,7 +9,6 @@ export class FormValidator {
     evt.preventDefault();
   };
 
-
   _hideError = (input) => {
     this._errorMessage.textContent = "";
     input.classList.remove(this._config.inputErrorClass);
@@ -41,21 +40,17 @@ export class FormValidator {
 
   enableValidation () {
     this._form.addEventListener('submit', this._formSubmit);
-
-
     this._button = this._form.querySelector(this._config.buttonSelector);
     this._toggleButtonState();
     this._inputList.forEach((input) => {
       input.addEventListener('input', () => {
         this._checkInputValidity(input);
         this._toggleButtonState();
-
       })
     })
   }
 
   resetValidation () {
-
     this._form.reset();
     this._toggleButtonState();
     this._inputList.forEach((input) => {

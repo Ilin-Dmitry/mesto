@@ -3,7 +3,6 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
-
     this._handleCardClick = handleCardClick;
   }
 

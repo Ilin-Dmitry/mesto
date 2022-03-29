@@ -20,10 +20,7 @@ export class PopupWithForm extends Popup {
 
   setEventListeners = () => {
     super.setEventListeners();
-    // document.addEventListener('keydown', this._handleEscClose);
     this._form.addEventListener('submit',() => this._handleSubmitForm(this._getInputValues()));
-
-    //добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
   };
 
   close = () => {
@@ -31,11 +28,4 @@ export class PopupWithForm extends Popup {
     this._form.reset();
   };
 
-  // open = () => {
-  //   console.log(this._handleEscClose);
-
-  //   //отвечают за открытие и закрытие попапа.
-  //   this._popup.classList.add('popup_opened');
-  //   document.addEventListener('keydown', this._handleEscClose);
-  // };
 }
