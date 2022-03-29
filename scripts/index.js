@@ -73,17 +73,25 @@ const enableValidation = (config) => {
 // function sayHi () {
 //   console.log('hi-hi');
 // }
-function handleProfileSubmitForm () {
-  pasteName.textContent = nameInput.value;
-  pasteStatus.textContent = statusInput.value; //переносим значение статуса на страницу
+function handleProfileSubmitForm (data) {
+
+  pasteName.textContent = data.name;
+  pasteStatus.textContent = data.status; //переносим значение статуса на страницу
+
   popupProfile.close();//Закрываем popup
+
+  // переопределяем значения по умолчанию
+  nameInput.setAttribute('value', data.name)
+  statusInput.setAttribute('value', data.status);
 }
 
-function handleNewCardSubmitForm () {
-  console.log('hi from handleNewCardSubmitForm');
-  const newPlace = {};
-  newPlace.name = placeInput.value;
-  newPlace.link = linkInput.value;
+function handleNewCardSubmitForm (data) {
+  const newPlace = {
+    name: data.place,
+    link: data.link
+  };
+  // newPlace.name = placeInput.value;
+  // newPlace.link = linkInput.value;
 
   section.addItem(createCard(newPlace));
   popupNewCard.close();

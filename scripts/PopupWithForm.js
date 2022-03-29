@@ -12,21 +12,23 @@ export class PopupWithForm extends Popup {
     this._inputsValues = {}
     this._inputsList.forEach((input) => {
       const value = input.value;
-      this._inputsValues[input] = value;
+      this._inputsValues[input.name] = value;
     })
     return this._inputsValues;
+
   }
 
   setEventListeners = () => {
     super.setEventListeners();
     // document.addEventListener('keydown', this._handleEscClose);
-    this._form.addEventListener('submit', this._handleSubmitForm);
+    this._form.addEventListener('submit',() => this._handleSubmitForm(this._getInputValues()));
 
     //добавляет слушатель клика иконке закрытия попапа. Модальное окно также закрывается при клике на затемнённую область вокруг формы.
   };
 
   close = () => {
     super.close();
+    console.log(this._getInputValues());
     this._form.reset();
   };
 
