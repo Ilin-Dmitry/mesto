@@ -5,6 +5,8 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 
+import './index.css';
+
 const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
 const popupNameForm = document.querySelector('.popup__form');//определили форму
 const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
