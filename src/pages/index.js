@@ -1,3 +1,13 @@
+import {
+  profileOpenButton,
+  nameInput,
+  statusInput,
+  newCardOpenButton,
+  elements,
+  initialCards,
+  validationConfig
+} from '../utils/constants.js';
+
 import { FormValidator } from "../components/FormValidator.js";
 import { Card } from "../components/Card.js";
 import { Section } from "../components/Section.js";
@@ -7,47 +17,7 @@ import { UserInfo } from "../components/UserInfo.js";
 
 import './index.css';
 
-const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
-const popupNameForm = document.querySelector('.popup__form');//определили форму
-const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
-const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
-const newCardOpenButton = document.querySelector('.profile__button');
-const elements = document.querySelector('.elements');
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit-button',
-  buttonClassDisabled: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_error'
-}
 
 const formValidators = {}
 //Функция включения валидации
