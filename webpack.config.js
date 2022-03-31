@@ -10,7 +10,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'my-favorite-project.js',
+    filename: 'index.js',
   },
   mode: 'development',
   devServer: {
