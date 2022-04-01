@@ -3,7 +3,7 @@ import {
   nameInput,
   statusInput,
   newCardOpenButton,
-  elements,
+  // elements,
   initialCards,
   validationConfig
 } from '../utils/constants.js';
@@ -48,18 +48,21 @@ function createCard (data) {
   return cardElement;
 }
 
+
 function handleNewCardSubmitForm (data) {
   const newPlace = {
     name: data.place,
     link: data.link
   };
-  section.addItem(createCard(newPlace));
+  section.addItem(newPlace);
   popupNewCard.close();
 };
 
-function renderCard (data) {
-  elements.prepend(createCard(data));
-}
+//elements.prepend
+// Только единственный экземпляр класса Section должен вставлять карточки в DOM.
+// function renderCard (data) {
+//   elements.prepend(createCard(data));
+// }
 
 function openProfilePopup () {
   formValidators.formNameStatus.resetValidation();
@@ -84,7 +87,7 @@ popupNewCard.setEventListeners();
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
 
-const section = new Section({items: initialCards, renderer: renderCard}, '.elements');
+const section = new Section({items: initialCards, renderer: createCard}, '.elements');
 section.renderAllElements();
 
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})

@@ -1,9 +1,8 @@
 export const profileOpenButton = document.querySelector('.profile__info-edit-button'); //определили блок с кнопкой
-export const popupNameForm = document.querySelector('.popup__form');//определили форму
+const popupNameForm = document.querySelector('.popup__form');//определили форму
 export const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
 export const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
 export const newCardOpenButton = document.querySelector('.profile__button');
-export const elements = document.querySelector('.elements');
 
 export const initialCards = [
   {
