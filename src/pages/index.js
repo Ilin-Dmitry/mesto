@@ -3,7 +3,6 @@ import {
   nameInput,
   statusInput,
   newCardOpenButton,
-  // elements,
   initialCards,
   validationConfig
 } from '../utils/constants.js';
@@ -57,12 +56,6 @@ function handleNewCardSubmitForm (data) {
   section.addItem(newPlace);
   popupNewCard.close();
 };
-
-//elements.prepend
-// Только единственный экземпляр класса Section должен вставлять карточки в DOM.
-// function renderCard (data) {
-//   elements.prepend(createCard(data));
-// }
 
 function openProfilePopup () {
   formValidators.formNameStatus.resetValidation();
