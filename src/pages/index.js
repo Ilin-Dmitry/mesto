@@ -13,6 +13,8 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { api } from "../components/Api.js";
+
 
 import './index.css';
 
@@ -80,7 +82,21 @@ popupNewCard.setEventListeners();
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
 
-const section = new Section({items: initialCards, renderer: createCard}, '.elements');
-section.renderAllElements();
+// const section = new Section({items: initialCards, renderer: createCard}, '.elements');
+// section.renderAllElements();
 
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
+
+
+api.getProfile()
+.then(res => {
+  console.log('answer', res)
+  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
+})
+
+api.getInitialCards()
+.then(cards => {console.log(cards)
+  const section = new Section({items: cards, renderer: createCard}, '.elements');
+  section.renderAllElements();
+
+})
