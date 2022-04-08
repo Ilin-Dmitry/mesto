@@ -33,14 +33,10 @@ const enableValidation = (config) => {
 };
 
 function handleProfileSubmitForm (data) {
-  userInfo.setUserInfo({newUserName: data.name, newUserInfo: data.status});
-
-  popupProfile.close();
-
-  const userData = userInfo.getUserInfo();
-  // переопределяем значения по умолчанию
-  nameInput.setAttribute('value', userData.name)
-  statusInput.setAttribute('value', userData.info);
+  api.editProfile(data.name, data.status)
+  .then(res => {userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
+  })
+  popupProfile.close()
 }
 
 function createCard (data) {
@@ -60,6 +56,10 @@ function handleNewCardSubmitForm (data) {
 };
 
 function openProfilePopup () {
+  const profileName = document.querySelector('.profile__info-title').textContent;
+  const profileStatus = document.querySelector('.profile__info-status').textContent;
+  nameInput.setAttribute('value', profileName);
+  statusInput.setAttribute('value', profileStatus);
   formValidators.formNameStatus.resetValidation();
   popupProfile.open();
 }
@@ -87,7 +87,6 @@ newCardOpenButton.addEventListener('click', openNewCardPopup);
 
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
 
-
 api.getProfile()
 .then(res => {
   console.log('answer', res)
@@ -100,3 +99,4 @@ api.getInitialCards()
   section.renderAllElements();
 
 })
+
