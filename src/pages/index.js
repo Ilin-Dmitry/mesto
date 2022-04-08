@@ -47,11 +47,17 @@ function createCard (data) {
 
 
 function handleNewCardSubmitForm (data) {
-  const newPlace = {
-    name: data.place,
-    link: data.link
-  };
-  section.addItem(newPlace);
+
+  api.addCard(data.place, data.link)
+  .then(res => {
+    const newPlace = {
+      name: res.name,
+      link: res.link,
+      likes: res.likes
+    }
+    section.addItem(newPlace);
+  })
+
   popupNewCard.close();
 };
 
@@ -82,19 +88,18 @@ popupNewCard.setEventListeners();
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
 
-// const section = new Section({items: initialCards, renderer: createCard}, '.elements');
+const section = new Section({items: initialCards, renderer: createCard}, '.elements');
 // section.renderAllElements();
 
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
 
 api.getProfile()
 .then(res => {
-  console.log('answer', res)
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
 })
 
 api.getInitialCards()
-.then(cards => {console.log(cards)
+.then(cards => {
   const section = new Section({items: cards, renderer: createCard}, '.elements');
   section.renderAllElements();
 

@@ -2,6 +2,7 @@ export class Card {
   constructor (data, templateElementSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
+    this._likes = data.likes;
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
     this._handleCardClick = handleCardClick;
   }
@@ -21,6 +22,11 @@ export class Card {
       this._handleCardClick(this._name, this._link)
     });
   }
+
+  _setLikesNumber () {
+    const likeNumberElement = this._cardsTemplate.querySelector('.element__like-number');
+    likeNumberElement.textContent = this._likes.length;
+  }
   createCard() {
     this._cardsTemplate = this._templateElement.cloneNode(true);
     this._buttonLike = this._cardsTemplate.querySelector('.element__like');
@@ -31,6 +37,7 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 
+    this._setLikesNumber();
     this._setEventListeners();
     return this._cardsTemplate;
   }
