@@ -4,6 +4,10 @@ export class Card {
     this._link = data.link;
     this._likes = data.likes;
     this._id = data._id;
+    this._userId = data.userId;
+    this._ownerId = data.owner._id;
+    console.log(data, this._userId, this._ownerId);
+
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
     this._handleCardClick = handleCardClick;
     this._handleRemoveBtnClick = handleRemoveBtnClick;
@@ -41,6 +45,10 @@ export class Card {
 
     this._setLikesNumber();
     this._setEventListeners();
+
+    if (this._userId !== this._ownerId) {
+      this._buttonRemove.style.display = 'none';
+    }
     return this._cardsTemplate;
   }
 }

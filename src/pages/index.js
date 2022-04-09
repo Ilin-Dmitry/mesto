@@ -18,7 +18,14 @@ import { api } from "../components/Api.js";
 
 import './index.css';
 
+let userId
 
+api.getProfile()
+.then(res => {
+  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
+  userId = res._id
+  console.log('UserID', userId);
+})
 
 const formValidators = {}
 //Функция включения валидации
@@ -40,18 +47,24 @@ function handleProfileSubmitForm (data) {
 }
 
 function createCard (data) {
-  console.log('createCard (data)', data);
+  console.log('createCard (data) это оунер', data.owner._id);
+  console.log("userId это юзер", userId);
+  console.log('стр 52',data);
+  data.userId = userId;
+
+
 
   const card = new Card(data, '.element__template', popupImage.open, (id) => {
-    console.log('id1', data._id);
-    console.log('data.id', data.id);
+    // console.log('id1', data._id);
+    // console.log('data.id', data.id);
+
     popupRemoveConfirm.open();
     popupRemoveConfirm.changeSubmitHandler(() => {
-      console.log('id2', data._id);
+      // console.log('id2', data._id);
       api.deleteCard(data._id)
         .then(res => {
           popupRemoveConfirm.close()
-          console.log(res)
+          // console.log(res)
           card._removeCard();
         })
     });
@@ -69,9 +82,11 @@ function handleNewCardSubmitForm (data) {
       name: res.name,
       link: res.link,
       likes: res.likes,
-      _id: res._id
+      _id: res._id,
+      owner: res.owner,
+      userId: userId
     }
-    console.log(newPlace);
+    // console.log(newPlace);
     section.addItem(newPlace);
   })
 
@@ -121,10 +136,9 @@ const section = new Section({items: initialCards, renderer: createCard}, '.eleme
 
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
 
-api.getProfile()
-.then(res => {
-  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
-})
+
+
+
 
 api.getInitialCards()
 .then(cards => {
