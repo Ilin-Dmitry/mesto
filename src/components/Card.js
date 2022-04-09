@@ -1,10 +1,12 @@
 export class Card {
-  constructor (data, templateElementSelector, handleCardClick) {
+  constructor (data, templateElementSelector, handleCardClick, handleRemoveBtnClick) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
+    this._id = data._id;
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
     this._handleCardClick = handleCardClick;
+    this._handleRemoveBtnClick = handleRemoveBtnClick;
   }
 
   _toggleLikeButton = () => {
@@ -17,7 +19,7 @@ export class Card {
 
   _setEventListeners = () => {
     this._buttonLike.addEventListener('click', this._toggleLikeButton);
-    this._buttonRemove.addEventListener('click', this._removeCard);
+    this._buttonRemove.addEventListener('click', () => {this._handleRemoveBtnClick(this._id)});
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
     });

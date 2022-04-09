@@ -40,7 +40,22 @@ function handleProfileSubmitForm (data) {
 }
 
 function createCard (data) {
-  const card = new Card(data, '.element__template', popupImage.open);
+  console.log('createCard (data)', data);
+
+  const card = new Card(data, '.element__template', popupImage.open, (id) => {
+    console.log('id1', data._id);
+    console.log('data.id', data.id);
+    popupRemoveConfirm.open();
+    popupRemoveConfirm.changeSubmitHandler(() => {
+      console.log('id2', data._id);
+      api.deleteCard(data._id)
+        .then(res => {
+          popupRemoveConfirm.close()
+          console.log(res)
+          card._removeCard();
+        })
+    });
+  });
   const cardElement = card.createCard();
   return cardElement;
 }
@@ -53,8 +68,10 @@ function handleNewCardSubmitForm (data) {
     const newPlace = {
       name: res.name,
       link: res.link,
-      likes: res.likes
+      likes: res.likes,
+      _id: res._id
     }
+    console.log(newPlace);
     section.addItem(newPlace);
   })
 
@@ -80,10 +97,21 @@ enableValidation(validationConfig);
 const popupImage = new PopupWithImage('.popup_sec_img');
 const popupProfile = new PopupWithForm('.popup_sec_profile', handleProfileSubmitForm);
 const popupNewCard = new PopupWithForm('.popup_sec_new', handleNewCardSubmitForm);
+// const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm', () => {
+//   api.deleteCard('625130be3407a100bb11b3ca')
+//     .then(res => {
+//       console.log('res', res)
+//     })
+//   // console.log('delete');
+//   popupRemoveConfirm.close();
+// });
+
+const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm');
 
 popupImage.setEventListeners();
 popupProfile.setEventListeners();
 popupNewCard.setEventListeners();
+popupRemoveConfirm.setEventListeners();
 
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
@@ -104,4 +132,3 @@ api.getInitialCards()
   section.renderAllElements();
 
 })
-
