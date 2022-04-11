@@ -24,7 +24,7 @@ api.getProfile()
 .then(res => {
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
   userId = res._id
-  console.log('UserID', userId);
+  // console.log('UserID', userId);
 })
 
 const formValidators = {}
@@ -47,9 +47,9 @@ function handleProfileSubmitForm (data) {
 }
 
 function createCard (data) {
-  console.log('createCard (data) это оунер', data.owner._id);
-  console.log("userId это юзер", userId);
-  console.log('стр 52',data);
+  // console.log('createCard (data) это оунер', data.owner._id);
+  // console.log("userId это юзер", userId);
+  // console.log('стр 52',data);
   data.userId = userId;
 
 
@@ -68,6 +68,11 @@ function createCard (data) {
           card._removeCard();
         })
     });
+  }, (id) => {
+    api.addLike(id)
+      .then(res => {
+        console.log('res', res)
+      })
   });
   const cardElement = card.createCard();
   return cardElement;

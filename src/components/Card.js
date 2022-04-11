@@ -1,16 +1,17 @@
 export class Card {
-  constructor (data, templateElementSelector, handleCardClick, handleRemoveBtnClick) {
+  constructor (data, templateElementSelector, handleCardClick, handleRemoveBtnClick, handleLikeClick) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._id = data._id;
     this._userId = data.userId;
     this._ownerId = data.owner._id;
-    console.log(data, this._userId, this._ownerId);
+    // console.log(data, this._userId, this._ownerId);
 
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
     this._handleCardClick = handleCardClick;
     this._handleRemoveBtnClick = handleRemoveBtnClick;
+    this._handleLikeClick = handleLikeClick;
   }
 
   _toggleLikeButton = () => {
@@ -22,7 +23,7 @@ export class Card {
   }
 
   _setEventListeners = () => {
-    this._buttonLike.addEventListener('click', this._toggleLikeButton);
+    this._buttonLike.addEventListener('click',() => {this._handleLikeClick(this._id)});
     this._buttonRemove.addEventListener('click', () => {this._handleRemoveBtnClick(this._id)});
     this._cardImage.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link)
@@ -49,6 +50,12 @@ export class Card {
     if (this._userId !== this._ownerId) {
       this._buttonRemove.style.display = 'none';
     }
+
+    const userHasLikedCard = this._likes.find(user => user._id === this._userId);
+    if (userHasLikedCard) {
+      this._toggleLikeButton();
+    }
+
     return this._cardsTemplate;
   }
 }
