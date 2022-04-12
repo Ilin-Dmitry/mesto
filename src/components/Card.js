@@ -6,7 +6,6 @@ export class Card {
     this._id = data._id;
     this._userId = data.userId;
     this._ownerId = data.owner._id;
-    // console.log(data, this._userId, this._ownerId);
 
     this._templateElement = document.querySelector(`${templateElementSelector}`).content;
     this._handleCardClick = handleCardClick;
@@ -17,8 +16,6 @@ export class Card {
   _toggleLikeButton = () => {
     this._buttonLike.classList.toggle('element__like_active');
   }
-
-
 
   _removeCard = () => {
     this._buttonRemove.closest('.element').remove();
@@ -38,10 +35,7 @@ export class Card {
   }
 
   isCardLiked = () => {
-  //element__like_active
-  console.log('this._buttonLike =>', this._buttonLike)
   if (this._buttonLike.classList.contains('element__like_active')) {
-    console.log('it is active');
     return true
   } else {return false}
   }

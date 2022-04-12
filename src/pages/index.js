@@ -24,7 +24,6 @@ api.getProfile()
 .then(res => {
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
   userId = res._id
-  // console.log('UserID', userId);
 })
 
 const formValidators = {}
@@ -47,51 +46,36 @@ function handleProfileSubmitForm (data) {
 }
 
 function createCard (data) {
-  // console.log('createCard (data) это оунер', data.owner._id);
-  // console.log("userId это юзер", userId);
-  // console.log('стр 52',data);
   data.userId = userId;
 
-
-
   const card = new Card(data, '.element__template', popupImage.open, (id) => {
-    // console.log('id1', data._id);
-    // console.log('data.id', data.id);
-
     popupRemoveConfirm.open();
     popupRemoveConfirm.changeSubmitHandler(() => {
-      // console.log('id2', data._id);
       api.deleteCard(data._id)
         .then(res => {
           popupRemoveConfirm.close()
-          // console.log(res)
           card._removeCard();
         })
     });
   },
    (id) => {
-     console.log('card.isCardLiked()', card.isCardLiked())
      if(!card.isCardLiked()) {
       api.addLike(id)
       .then(res => {
         card.changeLikeNumber(res.likes.length)
       })
      } else {
-       console.log("it's already liked")
        api.deleteLike(id)
        .then(res => {
         card.changeLikeNumber(res.likes.length)
       })
      }
-
   }
-
 
   );
   const cardElement = card.createCard();
   return cardElement;
 }
-
 
 function handleNewCardSubmitForm (data) {
 
@@ -105,7 +89,6 @@ function handleNewCardSubmitForm (data) {
       owner: res.owner,
       userId: userId
     }
-    // console.log(newPlace);
     section.addItem(newPlace);
   })
 
@@ -131,15 +114,6 @@ enableValidation(validationConfig);
 const popupImage = new PopupWithImage('.popup_sec_img');
 const popupProfile = new PopupWithForm('.popup_sec_profile', handleProfileSubmitForm);
 const popupNewCard = new PopupWithForm('.popup_sec_new', handleNewCardSubmitForm);
-// const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm', () => {
-//   api.deleteCard('625130be3407a100bb11b3ca')
-//     .then(res => {
-//       console.log('res', res)
-//     })
-//   // console.log('delete');
-//   popupRemoveConfirm.close();
-// });
-
 const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm');
 
 popupImage.setEventListeners();
@@ -151,17 +125,10 @@ profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
 
 const section = new Section({items: initialCards, renderer: createCard}, '.elements');
-// section.renderAllElements();
-
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
-
-
-
-
 
 api.getInitialCards()
 .then(cards => {
   const section = new Section({items: cards, renderer: createCard}, '.elements');
   section.renderAllElements();
-
 })
