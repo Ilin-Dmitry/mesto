@@ -100,6 +100,17 @@ function handleNewCardSubmitForm (data) {
   popupNewCard.close();
 };
 
+function handleChangeAvatarSubmitForm () {
+  console.log('новая автарка');
+  api.setAvatar('https://media.gettyimages.com/photos/man-is-killing-the-fragile-life-of-the-undersea-world-and-in-the-he-picture-id964989648?s=612x612')
+    .then(res => {
+      console.log(res)
+      avatarLinkOpenButton.style.backgroundImage = "url('https://media.gettyimages.com/photos/man-is-killing-the-fragile-life-of-the-undersea-world-and-in-the-he-picture-id964989648?s=612x612')"
+    })
+  popupChangeAvatar.close();
+
+}
+
 function openProfilePopup () {
   const profileName = document.querySelector('.profile__info-title').textContent;
   const profileStatus = document.querySelector('.profile__info-status').textContent;
@@ -125,7 +136,7 @@ const popupImage = new PopupWithImage('.popup_sec_img');
 const popupProfile = new PopupWithForm('.popup_sec_profile', handleProfileSubmitForm);
 const popupNewCard = new PopupWithForm('.popup_sec_new', handleNewCardSubmitForm);
 const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm');
-const popupChangeAvatar = new PopupWithForm('.popup_sec_avatar');
+const popupChangeAvatar = new PopupWithForm('.popup_sec_avatar', handleChangeAvatarSubmitForm);
 
 popupImage.setEventListeners();
 popupProfile.setEventListeners();

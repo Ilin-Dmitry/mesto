@@ -67,6 +67,18 @@ class Api {
     .then (res => res.ok ? res.json() : Promise.reject(res.status))
     .catch(console.log)
   }
+
+  setAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    })
+    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .catch(console.log)
+  }
 }
 
 export const api = new Api({
