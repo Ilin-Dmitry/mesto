@@ -70,11 +70,20 @@ function createCard (data) {
     });
   },
    (id) => {
-    api.addLike(id)
+     console.log('card.isCardLiked()', card.isCardLiked())
+     if(!card.isCardLiked()) {
+      api.addLike(id)
       .then(res => {
-        console.log('res.likes.length', res.likes.length)
-        card.setNewLike(res.likes.length)
+        card.changeLikeNumber(res.likes.length)
       })
+     } else {
+       console.log("it's already liked")
+       api.deleteLike(id)
+       .then(res => {
+        card.changeLikeNumber(res.likes.length)
+      })
+     }
+
   }
 
 

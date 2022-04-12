@@ -18,13 +18,7 @@ export class Card {
     this._buttonLike.classList.toggle('element__like_active');
   }
 
-  setNewLike = (likesArr) => {
-    this._likesArr = likesArr
-    console.log('hi from setNewLike in card.js');
-    this._buttonLike.classList.toggle('element__like_active')
-    console.log('this._likesArr =>', this._likesArr)
-    this._likeNumberElement.textContent = likesArr
-  }
+
 
   _removeCard = () => {
     this._buttonRemove.closest('.element').remove();
@@ -38,10 +32,24 @@ export class Card {
     });
   }
 
-  _setLikesNumber () {
+  changeLikeNumber = (count) => {
+    this._toggleLikeButton();
+    this._likeNumberElement.textContent = count
+  }
+
+  isCardLiked = () => {
+  //element__like_active
+  console.log('this._buttonLike =>', this._buttonLike)
+  if (this._buttonLike.classList.contains('element__like_active')) {
+    console.log('it is active');
+    return true
+  } else {return false}
+  }
+
+  _setLikesNumber = (count) => {
     this._likeNumberElement = this._cardsTemplate.querySelector('.element__like-number');
-    console.log(this._likeNumberElement)
-    this._likeNumberElement.textContent = this._likes.length;
+    this._likeNumberElement.textContent = count;
+
   }
   createCard() {
     this._cardsTemplate = this._templateElement.cloneNode(true);
@@ -53,7 +61,7 @@ export class Card {
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
 
-    this._setLikesNumber();
+    this._setLikesNumber(this._likes.length);
     this._setEventListeners();
 
     if (this._userId !== this._ownerId) {
