@@ -18,6 +18,8 @@ import { api } from "../components/Api.js";
 
 import './index.css';
 
+const avatarLinkOpenButton = document.querySelector('.profile__avatar');
+
 let userId
 
 api.getProfile()
@@ -109,20 +111,29 @@ function openNewCardPopup () {
   popupNewCard.open();
 }
 
+function openAvatarLinkPopup () {
+  popupChangeAvatar.open();
+}
+
 enableValidation(validationConfig);
 
 const popupImage = new PopupWithImage('.popup_sec_img');
 const popupProfile = new PopupWithForm('.popup_sec_profile', handleProfileSubmitForm);
 const popupNewCard = new PopupWithForm('.popup_sec_new', handleNewCardSubmitForm);
 const popupRemoveConfirm = new PopupWithForm('.popup_sec_remove-confirm');
+const popupChangeAvatar = new PopupWithForm('.popup_sec_avatar');
 
 popupImage.setEventListeners();
 popupProfile.setEventListeners();
 popupNewCard.setEventListeners();
 popupRemoveConfirm.setEventListeners();
+popupChangeAvatar.setEventListeners();
+
+
 
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
+avatarLinkOpenButton.addEventListener('click', openAvatarLinkPopup);
 
 const section = new Section({items: initialCards, renderer: createCard}, '.elements');
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
