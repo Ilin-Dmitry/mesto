@@ -18,6 +18,14 @@ export class Card {
     this._buttonLike.classList.toggle('element__like_active');
   }
 
+  setNewLike = (likesArr) => {
+    this._likesArr = likesArr
+    console.log('hi from setNewLike in card.js');
+    this._buttonLike.classList.toggle('element__like_active')
+    console.log('this._likesArr =>', this._likesArr)
+    this._likeNumberElement.textContent = likesArr
+  }
+
   _removeCard = () => {
     this._buttonRemove.closest('.element').remove();
   }
@@ -31,8 +39,9 @@ export class Card {
   }
 
   _setLikesNumber () {
-    const likeNumberElement = this._cardsTemplate.querySelector('.element__like-number');
-    likeNumberElement.textContent = this._likes.length;
+    this._likeNumberElement = this._cardsTemplate.querySelector('.element__like-number');
+    console.log(this._likeNumberElement)
+    this._likeNumberElement.textContent = this._likes.length;
   }
   createCard() {
     this._cardsTemplate = this._templateElement.cloneNode(true);

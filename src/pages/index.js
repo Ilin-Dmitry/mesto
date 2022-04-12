@@ -68,12 +68,17 @@ function createCard (data) {
           card._removeCard();
         })
     });
-  }, (id) => {
+  },
+   (id) => {
     api.addLike(id)
       .then(res => {
-        console.log('res', res)
+        console.log('res.likes.length', res.likes.length)
+        card.setNewLike(res.likes.length)
       })
-  });
+  }
+
+
+  );
   const cardElement = card.createCard();
   return cardElement;
 }
