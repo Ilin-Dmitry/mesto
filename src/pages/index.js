@@ -1,3 +1,4 @@
+const avatarLinkOpenButton = document.querySelector('.profile__avatar');
 import {
   profileOpenButton,
   nameInput,
@@ -18,7 +19,8 @@ import { api } from "../components/Api.js";
 
 import './index.css';
 
-const avatarLinkOpenButton = document.querySelector('.profile__avatar');
+
+
 
 let userId
 
@@ -37,6 +39,7 @@ const enableValidation = (config) => {
     const formName = formElement.getAttribute('name')
     formValidators[formName] = validator;
     validator.enableValidation();
+    console.log(formValidators);
   });
 };
 
@@ -112,6 +115,7 @@ function openNewCardPopup () {
 }
 
 function openAvatarLinkPopup () {
+  formValidators.formNewAvatar.resetValidation();
   popupChangeAvatar.open();
 }
 
