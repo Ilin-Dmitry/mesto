@@ -3,6 +3,7 @@ const popupNameForm = document.querySelector('.popup__form');//определи�
 export const nameInput = popupNameForm.querySelector('.popup__input_set_name'); //поле ввода имени
 export const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
 export const newCardOpenButton = document.querySelector('.profile__button');
+export const avatarLinkOpenButton = document.querySelector('.profile__avatar');
 
 export const initialCards = [
   {

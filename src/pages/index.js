@@ -1,12 +1,13 @@
-const avatarLinkOpenButton = document.querySelector('.profile__avatar');
 let buttonText;
+let userId;
 import {
   profileOpenButton,
   nameInput,
   statusInput,
   newCardOpenButton,
   initialCards,
-  validationConfig
+  validationConfig,
+  avatarLinkOpenButton
 } from '../utils/constants.js';
 
 import { FormValidator } from "../components/FormValidator.js";
@@ -17,17 +18,10 @@ import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
 
-
 import './index.css';
-
-
-
-
-let userId
 
 api.getProfile()
 .then(res => {
-  console.log('res from api.getProfile передае в userInfo =>',res)
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
   userId = res._id
 })
@@ -46,25 +40,22 @@ const enableValidation = (config) => {
 
 function handleProfileSubmitForm (data) {
   showBtnSubmitStatus(this.popupSubmtButton, true)
-  console.log('data from handleProfileSubmitForm', data)
   api.editProfile(data.name, data.status)
   .then(res => {
-    console.log('res from handleProfileSubmit..', res)
     userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
     popupProfile.close()
     showBtnSubmitStatus(this.popupSubmtButton, false)
   })
-
 }
+
 
 function createCard (data) {
   data.userId = userId;
-
-  const card = new Card(data, '.element__template', popupImage.open, (id) => {
+  const card = new Card(data, '.element__template', popupImage.open, () => {
     popupRemoveConfirm.open();
     popupRemoveConfirm.changeSubmitHandler(() => {
       api.deleteCard(data._id)
-        .then(res => {
+        .then(() => {
           popupRemoveConfirm.close()
           card._removeCard();
         })
@@ -83,7 +74,6 @@ function createCard (data) {
       })
      }
   }
-
   );
   const cardElement = card.createCard();
   return cardElement;
@@ -105,21 +95,13 @@ function handleNewCardSubmitForm (data) {
     popupNewCard.close();
     showBtnSubmitStatus(this.popupSubmtButton, false)
   })
-
-
 };
 
 function handleChangeAvatarSubmitForm (res) {
-  console.log('this.popupSubmtButton from handleChangeAvatarSubmitForm', this.popupSubmtButton)
   showBtnSubmitStatus(this.popupSubmtButton, true)
-  console.log('новая автарка, avatarLink =>', res);
   api.setAvatar(res.avatarLink)
     .then(res => {
-
-      console.log('res from server', res)
       avatarLinkOpenButton.style.backgroundImage = `url(${res.avatar})`
-
-
       popupChangeAvatar.close()
       showBtnSubmitStatus(this.popupSubmtButton, false)
     })
@@ -166,8 +148,6 @@ popupProfile.setEventListeners();
 popupNewCard.setEventListeners();
 popupRemoveConfirm.setEventListeners();
 popupChangeAvatar.setEventListeners();
-
-
 
 profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);

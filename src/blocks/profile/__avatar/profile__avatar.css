@@ -2,8 +2,7 @@
   position: relative;
   width: 120px;
   height: 120px;
-  background-color: #fff;
-  background-image: url(../../../images/kusto.jpg);
+  background-color: rgb(0, 0, 0);
   background-size: cover;
   border-radius: 50%;
   cursor: url('../../../images/big-pen.svg'), pointer;

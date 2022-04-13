@@ -14,10 +14,6 @@ export class FormValidator {
     input.classList.remove(this._config.inputErrorClass);
   }
 
-  // _showError (input) {
-  //   this._errorMessage.textContent = input.validationMessage;
-  //   input.classList.add(this._config.inputErrorClass);
-  // }
 
   _showError (input) {
     this._errorMessage.textContent = input.validationMessage;
