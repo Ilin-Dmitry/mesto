@@ -1,5 +1,3 @@
-let buttonText;
-let userId;
 import {
   profileOpenButton,
   nameInput,
@@ -19,6 +17,9 @@ import { UserInfo } from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
 
 import './index.css';
+
+let buttonText;
+let userId;
 
 api.getProfile()
 .then(res => {
@@ -49,32 +50,34 @@ function handleProfileSubmitForm (data) {
 }
 
 
+function removeCard (data, card) {
+  popupRemoveConfirm.open();
+  popupRemoveConfirm.changeSubmitHandler(() => {
+    api.deleteCard(data._id)
+      .then(() => {
+        popupRemoveConfirm.close()
+        card._removeCard();
+      })
+  });
+}
+
+function handleClickLikeButton (id, card) {
+  if(!card.isCardLiked()) {
+    api.addLike(id)
+    .then(res => {
+      card.changeLikeNumber(res.likes.length)
+    })
+   } else {
+     api.deleteLike(id)
+     .then(res => {
+      card.changeLikeNumber(res.likes.length)
+    })
+   }
+}
+
 function createCard (data) {
   data.userId = userId;
-  const card = new Card(data, '.element__template', popupImage.open, () => {
-    popupRemoveConfirm.open();
-    popupRemoveConfirm.changeSubmitHandler(() => {
-      api.deleteCard(data._id)
-        .then(() => {
-          popupRemoveConfirm.close()
-          card._removeCard();
-        })
-    });
-  },
-   (id) => {
-     if(!card.isCardLiked()) {
-      api.addLike(id)
-      .then(res => {
-        card.changeLikeNumber(res.likes.length)
-      })
-     } else {
-       api.deleteLike(id)
-       .then(res => {
-        card.changeLikeNumber(res.likes.length)
-      })
-     }
-  }
-  );
+  const card = new Card(data, '.element__template', popupImage.open, () => {removeCard(data, card)}, (id) => {handleClickLikeButton(id, card)});
   const cardElement = card.createCard();
   return cardElement;
 }
