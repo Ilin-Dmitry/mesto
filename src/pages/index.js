@@ -26,7 +26,8 @@ let userId
 
 api.getProfile()
 .then(res => {
-  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
+  console.log('res from api.getProfile передае в userInfo =>',res)
+  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
   userId = res._id
 })
 
@@ -39,7 +40,6 @@ const enableValidation = (config) => {
     const formName = formElement.getAttribute('name')
     formValidators[formName] = validator;
     validator.enableValidation();
-    console.log(formValidators);
   });
 };
 
@@ -100,12 +100,16 @@ function handleNewCardSubmitForm (data) {
   popupNewCard.close();
 };
 
-function handleChangeAvatarSubmitForm () {
-  console.log('новая автарка');
-  api.setAvatar('https://media.gettyimages.com/photos/man-is-killing-the-fragile-life-of-the-undersea-world-and-in-the-he-picture-id964989648?s=612x612')
+function handleChangeAvatarSubmitForm (res) {
+  console.log('новая автарка, avatarLink =>', res);
+  api.setAvatar(res.avatarLink)
     .then(res => {
-      console.log(res)
-      avatarLinkOpenButton.style.backgroundImage = "url('https://media.gettyimages.com/photos/man-is-killing-the-fragile-life-of-the-undersea-world-and-in-the-he-picture-id964989648?s=612x612')"
+      console.log('res from server', res)
+      avatarLinkOpenButton.style.backgroundImage = `url(${res.avatar})`
+
+    })
+    .then(res => {
+      console.log('res.2',res)
     })
   popupChangeAvatar.close();
 
@@ -151,7 +155,7 @@ newCardOpenButton.addEventListener('click', openNewCardPopup);
 avatarLinkOpenButton.addEventListener('click', openAvatarLinkPopup);
 
 const section = new Section({items: initialCards, renderer: createCard}, '.elements');
-const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status'})
+const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status', profileAvatarSelector: '.profile__avatar'})
 
 api.getInitialCards()
 .then(cards => {
