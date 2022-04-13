@@ -1,4 +1,5 @@
 const avatarLinkOpenButton = document.querySelector('.profile__avatar');
+let buttonText;
 import {
   profileOpenButton,
   nameInput,
@@ -44,10 +45,16 @@ const enableValidation = (config) => {
 };
 
 function handleProfileSubmitForm (data) {
+  showBtnSubmitStatus(this.popupSubmtButton, true)
+  console.log('data from handleProfileSubmitForm', data)
   api.editProfile(data.name, data.status)
-  .then(res => {userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about})
+  .then(res => {
+    console.log('res from handleProfileSubmit..', res)
+    userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
+    popupProfile.close()
+    showBtnSubmitStatus(this.popupSubmtButton, false)
   })
-  popupProfile.close()
+
 }
 
 function createCard (data) {
@@ -83,7 +90,7 @@ function createCard (data) {
 }
 
 function handleNewCardSubmitForm (data) {
-
+  showBtnSubmitStatus(this.popupSubmtButton, true)
   api.addCard(data.place, data.link)
   .then(res => {
     const newPlace = {
@@ -95,24 +102,27 @@ function handleNewCardSubmitForm (data) {
       userId: userId
     }
     section.addItem(newPlace);
+    popupNewCard.close();
+    showBtnSubmitStatus(this.popupSubmtButton, false)
   })
 
-  popupNewCard.close();
+
 };
 
 function handleChangeAvatarSubmitForm (res) {
+  console.log('this.popupSubmtButton from handleChangeAvatarSubmitForm', this.popupSubmtButton)
+  showBtnSubmitStatus(this.popupSubmtButton, true)
   console.log('новая автарка, avatarLink =>', res);
   api.setAvatar(res.avatarLink)
     .then(res => {
+
       console.log('res from server', res)
       avatarLinkOpenButton.style.backgroundImage = `url(${res.avatar})`
 
-    })
-    .then(res => {
-      console.log('res.2',res)
-    })
-  popupChangeAvatar.close();
 
+      popupChangeAvatar.close()
+      showBtnSubmitStatus(this.popupSubmtButton, false)
+    })
 }
 
 function openProfilePopup () {
@@ -134,6 +144,15 @@ function openAvatarLinkPopup () {
   popupChangeAvatar.open();
 }
 
+
+function showBtnSubmitStatus (button, isLoading) {
+  if(isLoading) {
+    buttonText = button.textContent;
+    button.textContent = 'Сохранение...';
+  } else {
+    button.textContent = buttonText;
+  }
+}
 enableValidation(validationConfig);
 
 const popupImage = new PopupWithImage('.popup_sec_img');
