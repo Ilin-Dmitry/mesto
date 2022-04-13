@@ -78,7 +78,7 @@
       <div class="popup__container">
         <form class="popup__form popup__form_sec_remove-confirm" method="post" name="formRemoveConfirm" novalidate>
           <h2 class="popup__heading">Вы уверены?</h2>
-          <button class="popup__submit-button" type="submit">Да</button>
+          <button class="popup__submit-button popup__submit-button_sec_remove-confirm" type="submit">Да</button>
         </form>
         <button class="popup__close-button" type="button"></button>
       </div>
@@ -102,8 +102,11 @@
       <button class="element__remove" type="button"></button>
       <div class="element__wrapper">
         <h2 class="element__name">Урал</h2>
-        <button class="element__like" type="button"></button>
-        <span class="element__like-number"></span>
+        <div class="element__like-container">
+          <button class="element__like" type="button"></button>
+          <span class="element__like-number"></span>
+        </div>
+
       </div>
    </article>
   </template>
