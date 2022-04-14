@@ -5,7 +5,7 @@ export class FormValidator {
     this._inputList = this._form.querySelectorAll(this._config.inputSelector);
   }
 
-  _formSubmit(evt) {
+  _submitForm(evt) {
     evt.preventDefault();
   };
 
@@ -40,7 +40,7 @@ export class FormValidator {
   }
 
   enableValidation () {
-    this._form.addEventListener('submit', this._formSubmit);
+    this._form.addEventListener('submit', this._submitForm);
     this._button = this._form.querySelector(this._config.buttonSelector);
     this._toggleButtonState();
     this._inputList.forEach((input) => {
