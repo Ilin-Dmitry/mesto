@@ -20,12 +20,17 @@ import './index.css';
 let buttonText;
 let userId;
 
-api.getProfile()
-.then(res => {
-  userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
-  userId = res._id
-})
-.catch((res) => {console.log('error # ',res)})
+
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    userInfo.setUserInfo({newUserName: userData.name, newUserInfo: userData.about, newUserAvatar: userData.avatar})
+    userId = userData._id
+    section.renderAllElements(cards)
+  })
+  .catch(err => {
+    console.log('Error # =>', err)
+  });
+
 
 
 const formValidators = {}
@@ -119,11 +124,9 @@ function handleChangeAvatarSubmitForm (res) {
 }
 
 function openProfilePopup () {
-  console.log('инфа 100%',userInfo.getUserInfo());
   const profileName = userInfo.getUserInfo().name;
   const profileStatus = userInfo.getUserInfo().info;
-  // const profileName = document.querySelector('.profile__info-title').textContent;
-  // const profileStatus = document.querySelector('.profile__info-status').textContent;
+
   nameInput.setAttribute('value', profileName);
   statusInput.setAttribute('value', profileStatus);
   formValidators.formNameStatus.resetValidation();
@@ -170,8 +173,3 @@ avatarLinkOpenButton.addEventListener('click', openAvatarLinkPopup);
 const section = new Section(createCard, '.elements');
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status', profileAvatarSelector: '.profile__avatar'})
 
-api.getInitialCards()
-.then(cards => {
-  section.renderAllElements(cards);
-})
-.catch((res) => {console.log('error # ',res)})
