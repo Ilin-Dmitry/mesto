@@ -46,9 +46,9 @@ function handleProfileSubmitForm (data) {
   .then(res => {
     userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
     popupProfile.close()
-    showBtnSubmitStatus(this.popupSubmtButton, false)
   })
   .catch((res) => {console.log('error # ',res)})
+  .finally(() => showBtnSubmitStatus(this.popupSubmtButton, false))
 }
 
 
@@ -102,9 +102,9 @@ function handleNewCardSubmitForm (data) {
     }
     section.addItem(newPlace);
     popupNewCard.close();
-    showBtnSubmitStatus(this.popupSubmtButton, false)
   })
   .catch((res) => {console.log('error # ',res)})
+  .finally(() => showBtnSubmitStatus(this.popupSubmtButton, false))
 };
 
 function handleChangeAvatarSubmitForm (res) {
@@ -113,9 +113,9 @@ function handleChangeAvatarSubmitForm (res) {
     .then(res => {
       avatarLinkOpenButton.style.backgroundImage = `url(${res.avatar})`
       popupChangeAvatar.close()
-      showBtnSubmitStatus(this.popupSubmtButton, false)
     })
     .catch((res) => {console.log('error # ',res)})
+    .finally(() => showBtnSubmitStatus(this.popupSubmtButton, false))
 }
 
 function openProfilePopup () {
