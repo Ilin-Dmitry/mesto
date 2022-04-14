@@ -119,8 +119,11 @@ function handleChangeAvatarSubmitForm (res) {
 }
 
 function openProfilePopup () {
-  const profileName = document.querySelector('.profile__info-title').textContent;
-  const profileStatus = document.querySelector('.profile__info-status').textContent;
+  console.log('инфа 100%',userInfo.getUserInfo());
+  const profileName = userInfo.getUserInfo().name;
+  const profileStatus = userInfo.getUserInfo().info;
+  // const profileName = document.querySelector('.profile__info-title').textContent;
+  // const profileStatus = document.querySelector('.profile__info-status').textContent;
   nameInput.setAttribute('value', profileName);
   statusInput.setAttribute('value', profileStatus);
   formValidators.formNameStatus.resetValidation();
