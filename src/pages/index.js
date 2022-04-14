@@ -4,7 +4,9 @@ import {
   statusInput,
   newCardOpenButton,
   validationConfig,
-  avatarLinkOpenButton
+  avatarLinkOpenButton,
+  buttonText,
+  userId
 } from '../utils/constants.js';
 
 import { FormValidator } from "../components/FormValidator.js";
@@ -17,14 +19,13 @@ import { api } from "../components/Api.js";
 
 import './index.css';
 
-let buttonText;
-let userId;
-
 
 Promise.all([api.getProfile(), api.getInitialCards()])
   .then(([userData, cards]) => {
+    //устанавливаем данные пользователя
     userInfo.setUserInfo({newUserName: userData.name, newUserInfo: userData.about, newUserAvatar: userData.avatar})
-    userId = userData._id
+    userId.idNumber = userData._id
+    //отрисовываем карточки
     section.renderAllElements(cards)
   })
   .catch(err => {
@@ -87,7 +88,7 @@ function handleClickLikeButton (id, card) {
 }
 
 function createCard (data) {
-  data.userId = userId;
+  data.userId = userId.idNumber;
   const card = new Card(data, '.element__template', popupImage.open, () => {removeCard(data, card)}, (id) => {handleClickLikeButton(id, card)});
   const cardElement = card.createCard();
   return cardElement;
@@ -103,7 +104,7 @@ function handleNewCardSubmitForm (data) {
       likes: res.likes,
       _id: res._id,
       owner: res.owner,
-      userId: userId
+      userId: userId.idNumber
     }
     section.addItem(newPlace);
     popupNewCard.close();
@@ -146,10 +147,10 @@ function openAvatarLinkPopup () {
 
 function showBtnSubmitStatus (button, isLoading) {
   if(isLoading) {
-    buttonText = button.textContent;
+    buttonText.content = button.textContent;
     button.textContent = 'Сохранение...';
   } else {
-    button.textContent = buttonText;
+    button.textContent = buttonText.content;
   }
 }
 enableValidation(validationConfig);

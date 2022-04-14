@@ -4,6 +4,8 @@ export const nameInput = popupNameForm.querySelector('.popup__input_set_name'); 
 export const statusInput = popupNameForm.querySelector('.popup__input_set_status'); //поле ввода статуса
 export const newCardOpenButton = document.querySelector('.profile__button');
 export const avatarLinkOpenButton = document.querySelector('.profile__avatar');
+export const buttonText = {};
+export const userId = {};
 
 
 export const validationConfig = {
