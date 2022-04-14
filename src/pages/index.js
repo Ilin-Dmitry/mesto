@@ -3,7 +3,6 @@ import {
   nameInput,
   statusInput,
   newCardOpenButton,
-  initialCards,
   validationConfig,
   avatarLinkOpenButton
 } from '../utils/constants.js';
@@ -20,6 +19,8 @@ import './index.css';
 
 let buttonText;
 let userId;
+
+console.log('buttonText =>', buttonText, 'userId =>', userId);
 
 api.getProfile()
 .then(res => {
@@ -156,11 +157,12 @@ profileOpenButton.addEventListener('click', openProfilePopup);
 newCardOpenButton.addEventListener('click', openNewCardPopup);
 avatarLinkOpenButton.addEventListener('click', openAvatarLinkPopup);
 
-const section = new Section({items: initialCards, renderer: createCard}, '.elements');
+const section = new Section(createCard, '.elements');
 const userInfo = new UserInfo({userNameSelector: '.profile__info-title', userInfoSelector: '.profile__info-status', profileAvatarSelector: '.profile__avatar'})
 
 api.getInitialCards()
 .then(cards => {
-  const section = new Section({items: cards, renderer: createCard}, '.elements');
-  section.renderAllElements();
+  section.renderAllElements(cards);
 })
+
+console.log('buttonText =>', buttonText, 'userId =>', userId);
