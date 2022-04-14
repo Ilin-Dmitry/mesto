@@ -4,10 +4,18 @@ class Api {
     this._baseUrl = baseUrl;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(res.status)
+    }
+  }
+
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {headers: this._headers})
-    .then(res => res.ok ? res.json() : Promise.reject(res.status))
-    .catch((res) => {console.log(res)})
+    .then(this._checkResponse)
+    .catch((res) => {console.log('ErRoR',res)})
   }
 
   editProfile(name, about) {
@@ -18,13 +26,13 @@ class Api {
         about: about
       })
     })
-      .then(res => res.ok? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse)
       .catch(console.log)
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
-    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 
@@ -37,7 +45,7 @@ class Api {
         link
       })
     })
-    .then (res => res.ok? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 
@@ -46,7 +54,7 @@ class Api {
       method: "DELETE",
       headers: this._headers
     })
-    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 
@@ -55,7 +63,7 @@ class Api {
       method: "DELETE",
       headers: this._headers
     })
-    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 
@@ -64,7 +72,7 @@ class Api {
       method: "PUT",
       headers: this._headers
     })
-    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 
@@ -76,7 +84,7 @@ class Api {
         avatar: avatar
       })
     })
-    .then (res => res.ok ? res.json() : Promise.reject(res.status))
+    .then(this._checkResponse)
     .catch(console.log)
   }
 }

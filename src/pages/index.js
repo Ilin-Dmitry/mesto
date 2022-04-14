@@ -20,8 +20,6 @@ import './index.css';
 let buttonText;
 let userId;
 
-console.log('buttonText =>', buttonText, 'userId =>', userId);
-
 api.getProfile()
 .then(res => {
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
@@ -164,5 +162,3 @@ api.getInitialCards()
 .then(cards => {
   section.renderAllElements(cards);
 })
-
-console.log('buttonText =>', buttonText, 'userId =>', userId);
