@@ -25,6 +25,8 @@ api.getProfile()
   userInfo.setUserInfo({newUserName: res.name, newUserInfo: res.about, newUserAvatar: res.avatar})
   userId = res._id
 })
+.catch((res) => {console.log('error # ',res)})
+
 
 const formValidators = {}
 //Функция включения валидации
@@ -46,6 +48,7 @@ function handleProfileSubmitForm (data) {
     popupProfile.close()
     showBtnSubmitStatus(this.popupSubmtButton, false)
   })
+  .catch((res) => {console.log('error # ',res)})
 }
 
 
@@ -57,7 +60,9 @@ function removeCard (data, card) {
         popupRemoveConfirm.close()
         card._removeCard();
       })
+      .catch((res) => {console.log('error # ',res)})
   });
+
 }
 
 function handleClickLikeButton (id, card) {
@@ -66,11 +71,13 @@ function handleClickLikeButton (id, card) {
     .then(res => {
       card.changeLikeNumber(res.likes.length)
     })
+    .catch((res) => {console.log('error # ',res)})
    } else {
      api.deleteLike(id)
      .then(res => {
       card.changeLikeNumber(res.likes.length)
     })
+    .catch((res) => {console.log('error # ',res)})
    }
 }
 
@@ -97,6 +104,7 @@ function handleNewCardSubmitForm (data) {
     popupNewCard.close();
     showBtnSubmitStatus(this.popupSubmtButton, false)
   })
+  .catch((res) => {console.log('error # ',res)})
 };
 
 function handleChangeAvatarSubmitForm (res) {
@@ -107,6 +115,7 @@ function handleChangeAvatarSubmitForm (res) {
       popupChangeAvatar.close()
       showBtnSubmitStatus(this.popupSubmtButton, false)
     })
+    .catch((res) => {console.log('error # ',res)})
 }
 
 function openProfilePopup () {
@@ -162,3 +171,4 @@ api.getInitialCards()
 .then(cards => {
   section.renderAllElements(cards);
 })
+.catch((res) => {console.log('error # ',res)})

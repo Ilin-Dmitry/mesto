@@ -15,7 +15,6 @@ class Api {
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {headers: this._headers})
     .then(this._checkResponse)
-    .catch((res) => {console.log('ErRoR',res)})
   }
 
   editProfile(name, about) {
@@ -27,13 +26,11 @@ class Api {
       })
     })
       .then(this._checkResponse)
-      .catch(console.log)
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
     .then(this._checkResponse)
-    .catch(console.log)
   }
 
   addCard(name, link) {
@@ -46,7 +43,6 @@ class Api {
       })
     })
     .then(this._checkResponse)
-    .catch(console.log)
   }
 
   deleteCard(id) {
@@ -55,7 +51,6 @@ class Api {
       headers: this._headers
     })
     .then(this._checkResponse)
-    .catch(console.log)
   }
 
   deleteLike(id) {
@@ -64,7 +59,6 @@ class Api {
       headers: this._headers
     })
     .then(this._checkResponse)
-    .catch(console.log)
   }
 
   addLike(id) {
@@ -73,7 +67,6 @@ class Api {
       headers: this._headers
     })
     .then(this._checkResponse)
-    .catch(console.log)
   }
 
   setAvatar(avatar) {
@@ -85,7 +78,6 @@ class Api {
       })
     })
     .then(this._checkResponse)
-    .catch(console.log)
   }
 }
 
